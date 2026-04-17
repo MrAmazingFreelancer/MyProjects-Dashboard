@@ -1,0 +1,11 @@
+{
+  "name": "project-root",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Standard project scaffold",
+  "main": "src/main.js",
+  "scripts": {
+    "start": "node src/main.js",
+    "test": "echo \"No tests yet\" && exit 0"
+  }
+}
