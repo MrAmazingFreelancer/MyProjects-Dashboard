@@ -1,0 +1,16 @@
+# Ignore WordPress core (install separately or as a submodule)
+wordpress/
+
+# Ignore XAMPP bundled web tools
+webalizer/
+xampp/
+dashboard/
+img/
+
+# OS artifacts
+.DS_Store
+Thumbs.db
+desktop.ini
+*.tmp
+*.swp
+*~
