@@ -26,6 +26,25 @@ foreach ($paths as $label => $path) {
 
 $timezone = date_default_timezone_get();
 $now = date('Y-m-d H:i:s');
+
+$projectsRoot = realpath(__DIR__ . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . 'projects');
+$projects = [];
+if ($projectsRoot !== false && is_dir($projectsRoot)) {
+    $items = scandir($projectsRoot);
+    if ($items !== false) {
+        foreach ($items as $item) {
+            if ($item === '.' || $item === '..') {
+                continue;
+            }
+
+            $itemPath = $projectsRoot . DIRECTORY_SEPARATOR . $item;
+            if (is_dir($itemPath)) {
+                $projects[] = $item;
+            }
+        }
+    }
+}
+sort($projects, SORT_NATURAL | SORT_FLAG_CASE);
 ?>
 <!doctype html>
 <html lang="en">
@@ -141,6 +160,30 @@ $now = date('Y-m-d H:i:s');
         .status-ok { color: var(--ok); font-weight: 700; }
         .status-bad { color: var(--bad); font-weight: 700; }
 
+        .projects {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+            gap: 10px;
+        }
+
+        .project-link {
+            display: block;
+            border: 1px solid #bfdbfe;
+            border-radius: 10px;
+            text-decoration: none;
+            background: #eff6ff;
+            color: #1e3a8a;
+            font-weight: 600;
+            padding: 10px 12px;
+            text-align: center;
+        }
+
+        .project-empty {
+            color: var(--muted);
+            margin: 0;
+            font-size: 0.92rem;
+        }
+
         .quick-link {
             display: inline-block;
             margin-top: 10px;
@@ -205,6 +248,21 @@ $now = date('Y-m-d H:i:s');
                     </li>
                     <?php endforeach; ?>
                 </ul>
+            </section>
+
+            <section style="grid-column: 1 / -1;">
+                <h2>Projects Directory</h2>
+                <?php if (count($projects) > 0): ?>
+                <div class="projects">
+                    <?php foreach ($projects as $project): ?>
+                    <a class="project-link" href="../projects/<?= rawurlencode($project) ?>/">
+                        <?= htmlspecialchars($project, ENT_QUOTES, 'UTF-8') ?>
+                    </a>
+                    <?php endforeach; ?>
+                </div>
+                <?php else: ?>
+                <p class="project-empty">No projects found in htdocs/projects yet.</p>
+                <?php endif; ?>
             </section>
         </div>
     </main>
