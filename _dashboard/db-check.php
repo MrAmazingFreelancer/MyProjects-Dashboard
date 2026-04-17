@@ -239,6 +239,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <div class="actions">
                 <button type="submit">Test Connection</button>
                 <a class="link" href="index.php">Back to Health Dashboard</a>
+                <a class="link" href="../index.php">Back to Project Hub</a>
             </div>
 
             <p class="hint">Tip: default XAMPP credentials are often user root with empty password.</p>
