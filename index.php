@@ -2,6 +2,11 @@
 $entries = scandir(__DIR__);
 $directories = [];
 $files = [];
+$favoriteDirs = [
+	'_dashboard',
+	'projects',
+	'_templates',
+];
 
 $skipNames = [
 	'.',
@@ -18,18 +23,39 @@ if ($entries !== false) {
 
 		$path = __DIR__ . DIRECTORY_SEPARATOR . $entry;
 		if (is_dir($path)) {
-			$directories[] = $entry;
+			$directories[] = [
+				'name' => $entry,
+				'modified' => date('Y-m-d H:i:s', (int) filemtime($path)),
+			];
 			continue;
 		}
 
 		if (is_file($path)) {
-			$files[] = $entry;
+			$files[] = [
+				'name' => $entry,
+				'modified' => date('Y-m-d H:i:s', (int) filemtime($path)),
+			];
 		}
 	}
 }
 
-sort($directories, SORT_NATURAL | SORT_FLAG_CASE);
-sort($files, SORT_NATURAL | SORT_FLAG_CASE);
+usort($directories, static function (array $a, array $b): int {
+	return strnatcasecmp($a['name'], $b['name']);
+});
+
+usort($files, static function (array $a, array $b): int {
+	return strnatcasecmp($a['name'], $b['name']);
+});
+
+$favorites = [];
+foreach ($favoriteDirs as $favoriteDir) {
+	foreach ($directories as $directory) {
+		if ($directory['name'] === $favoriteDir) {
+			$favorites[] = $directory;
+			break;
+		}
+	}
+}
 ?>
 <!doctype html>
 <html lang="en">
@@ -167,6 +193,26 @@ sort($files, SORT_NATURAL | SORT_FLAG_CASE);
 			font-size: 0.9rem;
 			overflow-x: auto;
 		}
+
+		.search-wrap {
+			margin-top: 14px;
+		}
+
+		.search {
+			width: 100%;
+			padding: 10px 12px;
+			border: 1px solid #bfdbfe;
+			border-radius: 10px;
+			font-size: 0.95rem;
+		}
+
+		.meta {
+			display: block;
+			margin-top: 5px;
+			font-weight: 500;
+			color: #64748b;
+			font-size: 0.84rem;
+		}
 	</style>
 </head>
 <body>
@@ -178,15 +224,37 @@ sort($files, SORT_NATURAL | SORT_FLAG_CASE);
 				<a class="pill" href="/_dashboard/">Open Dashboard</a>
 				<a class="pill" href="/projects/">Open Shared Projects</a>
 			</div>
+			<div class="search-wrap">
+				<input id="hub-search" class="search" type="search" placeholder="Search directories and files...">
+			</div>
 		</header>
 
 		<div class="content">
+			<section>
+				<h2>Favorites</h2>
+				<?php if (count($favorites) > 0): ?>
+				<div class="list">
+					<?php foreach ($favorites as $favorite): ?>
+					<a class="item" data-name="<?= htmlspecialchars(strtolower($favorite['name']), ENT_QUOTES, 'UTF-8') ?>" href="/<?= rawurlencode($favorite['name']) ?>/">
+						<?= htmlspecialchars($favorite['name'], ENT_QUOTES, 'UTF-8') ?>/
+						<span class="meta">Modified: <?= htmlspecialchars($favorite['modified'], ENT_QUOTES, 'UTF-8') ?></span>
+					</a>
+					<?php endforeach; ?>
+				</div>
+				<?php else: ?>
+				<p class="empty">No favorite directories found.</p>
+				<?php endif; ?>
+			</section>
+
 			<section>
 				<h2>Directories</h2>
 				<?php if (count($directories) > 0): ?>
 				<div class="list">
 					<?php foreach ($directories as $dir): ?>
-					<a class="item" href="/<?= rawurlencode($dir) ?>/"><?= htmlspecialchars($dir, ENT_QUOTES, 'UTF-8') ?>/</a>
+					<a class="item" data-name="<?= htmlspecialchars(strtolower($dir['name']), ENT_QUOTES, 'UTF-8') ?>" href="/<?= rawurlencode($dir['name']) ?>/">
+						<?= htmlspecialchars($dir['name'], ENT_QUOTES, 'UTF-8') ?>/
+						<span class="meta">Modified: <?= htmlspecialchars($dir['modified'], ENT_QUOTES, 'UTF-8') ?></span>
+					</a>
 					<?php endforeach; ?>
 				</div>
 				<?php else: ?>
@@ -199,7 +267,10 @@ sort($files, SORT_NATURAL | SORT_FLAG_CASE);
 				<?php if (count($files) > 0): ?>
 				<div class="list">
 					<?php foreach ($files as $file): ?>
-					<a class="item" href="/<?= rawurlencode($file) ?>"><?= htmlspecialchars($file, ENT_QUOTES, 'UTF-8') ?></a>
+					<a class="item" data-name="<?= htmlspecialchars(strtolower($file['name']), ENT_QUOTES, 'UTF-8') ?>" href="/<?= rawurlencode($file['name']) ?>">
+						<?= htmlspecialchars($file['name'], ENT_QUOTES, 'UTF-8') ?>
+						<span class="meta">Modified: <?= htmlspecialchars($file['modified'], ENT_QUOTES, 'UTF-8') ?></span>
+					</a>
 					<?php endforeach; ?>
 				</div>
 				<?php else: ?>
@@ -215,5 +286,22 @@ sort($files, SORT_NATURAL | SORT_FLAG_CASE);
 			</section>
 		</div>
 	</main>
+	<script>
+		(function () {
+			const input = document.getElementById('hub-search');
+			if (!input) {
+				return;
+			}
+
+			const items = Array.from(document.querySelectorAll('.item[data-name]'));
+			input.addEventListener('input', function () {
+				const query = input.value.trim().toLowerCase();
+				for (const item of items) {
+					const name = item.getAttribute('data-name') || '';
+					item.style.display = name.includes(query) ? '' : 'none';
+				}
+			});
+		})();
+	</script>
 </body>
 </html>
