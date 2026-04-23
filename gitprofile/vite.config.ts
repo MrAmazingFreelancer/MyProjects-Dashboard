@@ -5,8 +5,9 @@ import CONFIG from './gitprofile.config';
 import { createHtmlPlugin } from 'vite-plugin-html';
 
 // https://vitejs.dev/config/
-export default defineConfig({
-  base: CONFIG.base || '/',
+export default defineConfig(({ command }) => ({
+  // Use root base in dev for easier local access; use configured base for build/deploy.
+  base: command === 'serve' ? '/' : CONFIG.base || '/',
   plugins: [
     react(),
     createHtmlPlugin({
@@ -55,4 +56,4 @@ export default defineConfig({
   define: {
     CONFIG: CONFIG,
   },
-});
+}));

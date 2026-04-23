@@ -163,13 +163,11 @@ export const getInitialTheme = (themeConfig: SanitizedThemeConfig): string => {
 export const skeleton = ({
   widthCls = null,
   heightCls = null,
-  style = {} as React.CSSProperties,
   shape = 'rounded-full',
   className = null,
 }: {
   widthCls?: string | null;
   heightCls?: string | null;
-  style?: React.CSSProperties;
   shape?: string;
   className?: string | null;
 }): React.JSX.Element => {
@@ -184,7 +182,7 @@ export const skeleton = ({
     classNames.push(heightCls);
   }
 
-  return <div className={classNames.join(' ')} style={style} />;
+  return <div className={classNames.join(' ')} />;
 };
 
 export const setupHotjar = (hotjarConfig: SanitizedHotjar): void => {
