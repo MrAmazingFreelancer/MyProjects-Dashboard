@@ -1,0 +1,4 @@
+config/database.yml
+public/attachments
+log
+tmp/*

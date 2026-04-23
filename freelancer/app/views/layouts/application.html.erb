@@ -1,0 +1,44 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+	<title><%= (title = yield :title) ? title : "Freelancer!" %></title>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+	<%= stylesheet_link_tag 'screen.css' %>
+	<%= stylesheet_link_tag 'facebox.css' %>
+	<%= stylesheet_link_tag 'print.css', :media => :print %>
+	<%= javascript_include_tag 'jquery-min' %>
+	<%= javascript_include_tag 'interface' %>
+	<%= javascript_include_tag 'facebox' %>
+	<%= javascript_include_tag 'application' %>
+	<%= yield :head %>
+
+</head>
+
+<body>
+	<div id="wrapper">
+		<div id="header">
+			Freelancer!
+		</div>
+		
+		<div id="nav" class="clearfix">
+			<ul>
+				<li><%= link_to 'Clients', clients_path %></li>
+				<li><%= link_to 'Pages', pages_path %></li>
+				<li><%= link_to 'Site Settings', edit_site_path %></li>
+			</ul>
+		</div>
+		
+		<div id="content">
+			<%= yield %>
+		</div>
+		
+		<div id="footer">
+			Freelancer! loves you
+		</div>
+	</div>
+
+
+</body>
+</html>

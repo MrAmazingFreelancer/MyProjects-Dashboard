@@ -1,0 +1,43 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+	<title><%= @site.title %> &mdash; <%= @page.title.blank? ? @site.subtitle : @page.title %></title>
+	<title><%= (title = yield :title) ? title : "Freelancer!" %></title>
+
+	<link href="<%= stylesheet_path %>" media="screen" rel="stylesheet" type="text/css" />
+	<%= stylesheet_link_tag 'facebox.css' %>
+	<%= javascript_include_tag 'jquery-min' %>
+	<%= javascript_include_tag 'facebox' %>
+	<%= javascript_include_tag 'application' %>
+
+	<%=  @site.extra_head %>
+
+</head>
+<body>
+	<div id="wrapper">
+		<div id="header">
+			<%= link_to @site.title, home_url, :id => 'logo' %>
+			<div id="nav">
+				<% @pages.each do |page| -%>
+					<%= nav_link page %>
+				<% end -%>
+			</div>
+		</div>
+		<div id="content">
+			<%= yield %>
+		</div>
+		<div id="footer">
+			<a href="/">Home</a>
+			<% @pages.each do |page| -%>
+				 <%= nav_link(page).blank? ? '' : " &bull; " + nav_link(page) %> 
+			<% end -%>
+			<%= textilizeit(@site.footer)%>
+		</div>
+	</div>
+
+</body>
+</html>

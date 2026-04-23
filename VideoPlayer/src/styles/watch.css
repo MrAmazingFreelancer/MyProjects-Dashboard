@@ -1,0 +1,23 @@
+.back-link {
+  display: inline-block;
+  color: #9ca3af;
+  margin-bottom: 1rem;
+}
+
+.back-link:hover {
+  color: white;
+}
+
+.video-container {
+  margin-bottom: 1.5rem;
+}
+
+.video-title {
+  font-size: 1.25rem;
+  font-weight: bold;
+}
+
+.video-description {
+  color: #9ca3af;
+  margin-top: 0.5rem;
+}

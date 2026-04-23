@@ -1,0 +1,37 @@
+h2. Freelancer
+
+Freelancer is here to help your freelancing needs. Sure Basecamp, Highrise, and all those other fun apps are great, but how many features do you use in each of them? And doesn't it suck to have to pay for *all* of them just because you need a few features in each?
+
+Freelancer's aim is to gather just what a freelancer needs to manage his projects.
+
+It's tiny now, so it doesn't do much (if ANYTHING), but keep watching here!
+
+Freelancer wants you to fork it. Freelancer is for freelancers by freelancers.
+
+h4. App Deps
+
+* MySql
+* ImageMagick
+* RedCloth
+
+h4. Dev Deps
+
+* Rspec
+
+h4. Installation
+
+* Create the db:
+	<pre><code>
+	RAILS_ENV=production rake db:create
+	</code></pre>
+* Load the schema:
+	<pre><code>
+	rake db:schema:load
+	</code></pre>
+* Bootstrap:
+	<pre><code>
+	rake db:bootstrap:load
+	</code></pre>
+* script/server to start the server - enjoy!
+
+hit /admin and use the default login/password combo of: admin/admin

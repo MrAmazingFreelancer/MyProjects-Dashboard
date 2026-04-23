@@ -1,0 +1,27 @@
+.thumbnail-card {
+  background: #1f2937;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.thumbnail-image {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+}
+
+.thumbnail-info {
+  padding: 0.75rem;
+}
+
+.thumbnail-title {
+  font-weight: 500;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.thumbnail-date {
+  font-size: 0.875rem;
+  color: #9ca3af;
+}

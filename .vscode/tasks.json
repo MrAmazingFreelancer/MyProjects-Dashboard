@@ -1,0 +1,13 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"type": "npm",
+			"script": "clean",
+			"path": "oss-fuzz/tools/vscode-extension",
+			"problemMatcher": [],
+			"label": "npm: clean - oss-fuzz/tools/vscode-extension",
+			"detail": "gts clean"
+		}
+	]
+}

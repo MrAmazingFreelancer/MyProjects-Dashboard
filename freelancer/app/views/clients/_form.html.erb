@@ -1,0 +1,7 @@
+<% form_for @client do |f| -%>
+
+	<p><%= f.label :name %><br />
+	<%= f.text_field :name %></p>
+
+	<%= form_model_buttons @client %>
+<% end -%>

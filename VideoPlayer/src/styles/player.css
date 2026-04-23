@@ -1,0 +1,17 @@
+/* Video Player Wrapper */
+.video-player-wrapper {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* Simple Player */
+.simple-player {
+  background: #000;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.simple-player video {
+  display: block;
+  width: 100%;
+}

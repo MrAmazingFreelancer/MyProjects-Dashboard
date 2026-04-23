@@ -1,0 +1,16 @@
+{
+    "python-envs.pythonProjects": [
+        {
+            "path": "v10",
+            "envManager": "ms-python.python:venv",
+            "packageManager": "ms-python.python:pip"
+        }
+    ],
+    "chat.tools.terminal.autoApprove": {
+        "/^node --version; npm --version$/": {
+            "approve": true,
+            "matchCommandLine": true
+        }
+    },
+    "cmake.ignoreCMakeListsMissing": true
+}

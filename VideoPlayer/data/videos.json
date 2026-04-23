@@ -1,0 +1,90 @@
+{
+  "videos": [
+    {
+      "id": "269cb6ee-003c-490a-83fa-591bcbc86226",
+      "title": "Tetsing Video",
+      "description": "",
+      "filePath": "/videos/Boot.dev_Insert_-_Nov_11__2025_rCi_l23fU.mp4",
+      "fileName": "Boot.dev_Insert_-_Nov_11__2025_rCi_l23fU.mp4",
+      "thumbnailPath": "/thumbnails/V3_Vgt6JN5Zs.PNG",
+      "createdAt": "2026-01-30T14:20:38.891Z",
+      "subtitles": [],
+      "watermark": {
+        "imagePath": "/watermarks/logo_final_Y1Gkv4-Qn.png",
+        "position": "bottom_right",
+        "opacity": 0.7,
+        "width": 120
+      },
+      "quality": 50,
+      "format": "mp4"
+    },
+    {
+      "id": "c7f39106-445c-44e5-9baa-972d0cdfb145",
+      "title": "Fastest way to pivot into ai",
+      "description": "",
+      "filePath": "/videos/The_Fastest_Way_to_Pivot_Into_AI_in_2026__From_Beginner_to_Job-Ready__-WBc7PUP2.mp4",
+      "fileName": "The_Fastest_Way_to_Pivot_Into_AI_in_2026__From_Beginner_to_Job-Ready__-WBc7PUP2.mp4",
+      "thumbnailPath": "/thumbnails/OPTION_1__1__H5itI5H7F.PNG",
+      "createdAt": "2026-01-31T12:25:25.276Z",
+      "subtitles": [
+        {
+          "label": "English",
+          "language": "en",
+          "filePath": "/subtitles/captions_SKKcvgiKF.vtt"
+        }
+      ],
+      "watermark": {
+        "imagePath": "/watermarks/logo_final_MDkfB13ef.png",
+        "position": "bottom_right",
+        "opacity": 0.7,
+        "width": 120
+      },
+      "quality": 60,
+      "format": "mp4"
+    },
+    {
+      "id": "a5914a8e-d335-4307-be67-3a6dab1b8858",
+      "title": "Pivot into Ai V2",
+      "description": "",
+      "filePath": "/videos/The_Fastest_Way_to_Pivot_Into_AI_in_2026__From_Beginner_to_Job-Ready__0V4alSwrT.mp4",
+      "fileName": "The_Fastest_Way_to_Pivot_Into_AI_in_2026__From_Beginner_to_Job-Ready__0V4alSwrT.mp4",
+      "thumbnailPath": "/thumbnails/thb_timv1_Wmv0kmHnm.png",
+      "createdAt": "2026-02-05T11:11:08.406Z",
+      "subtitles": [
+        {
+          "label": "English",
+          "language": "en",
+          "filePath": "/subtitles/ai_captions_0Qp6larQ8.srt"
+        }
+      ],
+      "watermark": {
+        "imagePath": "/watermarks/logo_final_lgojlaebw.png",
+        "position": "bottom_right",
+        "opacity": 0.7,
+        "width": 120
+      }
+    },
+    {
+      "id": "9b1b05ff-2281-48a4-8d75-6211a9e4ccf9",
+      "title": "test video",
+      "description": "",
+      "filePath": "/videos/Boot.dev_Insert_-_Nov_11__2025_BrZYLpWCK.mp4",
+      "fileName": "Boot.dev_Insert_-_Nov_11__2025_BrZYLpWCK.mp4",
+      "thumbnailPath": "/thumbnails/4__1__UFX1wpNR6.png",
+      "createdAt": "2026-02-09T08:43:46.330Z",
+      "subtitles": [
+        {
+          "label": "English",
+          "language": "en",
+          "filePath": "/subtitles/captions_Ll7tjDgp-.srt"
+        }
+      ],
+      "watermark": {
+        "imagePath": "/watermarks/file-8XJNuY7HPX3ECN9QgRfEgy-DevLaunch_Square_Logo_DV_zp43qA.png",
+        "position": "bottom_right",
+        "opacity": 0.7,
+        "width": 120
+      }
+    }
+  ]
+}
