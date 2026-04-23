@@ -1,0 +1,5 @@
+// gitprofile.config.ts
+{
+  base: '/',
+  // ...
+}
