@@ -1,4 +1,17 @@
 {
   "version": 2,
-  "outputDirectory": "."
+  "outputDirectory": ".",
+  "redirects": [
+    {
+      "source": "/:path*",
+      "has": [
+        {
+          "type": "host",
+          "value": "www.7ink.com.au"
+        }
+      ],
+      "destination": "https://7ink.com.au/:path*",
+      "permanent": true
+    }
+  ]
 }
