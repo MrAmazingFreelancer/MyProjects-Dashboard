@@ -1,0 +1,19 @@
+{
+  "name": "7ink-website",
+  "version": "1.0.0",
+  "description": "7ink.com.au - Knight Theme Website",
+  "scripts": {
+    "build": "mkdir -p public && cp -r . public && rm -rf public/node_modules public/.git public/vercel.json",
+    "dev": "http-server -p 3000",
+    "start": "http-server -p 3000"
+  },
+  "keywords": [
+    "7ink",
+    "website"
+  ],
+  "author": "7ink",
+  "license": "MIT",
+  "devDependencies": {
+    "http-server": "^14.1.1"
+  }
+}
