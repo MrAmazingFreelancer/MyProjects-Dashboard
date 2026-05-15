@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "7ink.com.au - Knight Theme Website",
   "scripts": {
-    "build": "mkdir -p public && cp -r . public && rm -rf public/node_modules public/.git public/vercel.json",
+    "build": "echo \"No build step required for static site\"",
     "dev": "http-server -p 3000",
     "start": "http-server -p 3000"
   },

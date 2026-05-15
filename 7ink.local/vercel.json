@@ -1,15 +1,3 @@
 {
-  "version": 2,
-  "buildCommand": "npm run build",
-  "outputDirectory": "public",
-  "env": {
-    "NODE_ENV": "production"
-  },
-  "redirects": [
-    {
-      "source": "/admin",
-      "destination": "/admin/index.html",
-      "permanent": false
-    }
-  ]
+  "version": 2
 }
