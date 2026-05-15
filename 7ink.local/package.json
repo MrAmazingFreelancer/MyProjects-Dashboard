@@ -4,16 +4,13 @@
   "description": "7ink.com.au - Knight Theme Website",
   "scripts": {
     "build": "echo \"No build step required for static site\"",
-    "dev": "http-server -p 3000",
-    "start": "http-server -p 3000"
+    "dev": "echo \"Use local XAMPP Apache for development\"",
+    "start": "echo \"Static deployment on Vercel\""
   },
   "keywords": [
     "7ink",
     "website"
   ],
   "author": "7ink",
-  "license": "MIT",
-  "devDependencies": {
-    "http-server": "^14.1.1"
-  }
+  "license": "MIT"
 }
