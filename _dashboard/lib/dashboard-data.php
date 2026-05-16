@@ -58,6 +58,7 @@ function collectProjectsList(string $projectsRoot, ?callable $scandirFn = null, 
     }
 
     $items = $scandirFn($projectsRoot);
+    // Defensive for dependency-injected test doubles that might not return scandir-compatible values.
     if (!is_array($items)) {
         return $projects;
     }
