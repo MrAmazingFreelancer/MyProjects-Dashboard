@@ -1,10 +1,12 @@
 <?php
-$checks = [
-    'mysqli' => extension_loaded('mysqli'),
-    'curl' => extension_loaded('curl'),
-    'openssl' => extension_loaded('openssl'),
-    'mbstring' => extension_loaded('mbstring'),
-];
+require_once __DIR__ . DIRECTORY_SEPARATOR . 'lib' . DIRECTORY_SEPARATOR . 'dashboard-data.php';
+
+$checks = buildExtensionChecks([
+    'mysqli',
+    'curl',
+    'openssl',
+    'mbstring',
+]);
 
 $xamppRoot = realpath(__DIR__ . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . '..');
 $paths = [
@@ -13,38 +15,13 @@ $paths = [
     'apache logs' => $xamppRoot . DIRECTORY_SEPARATOR . 'apache' . DIRECTORY_SEPARATOR . 'logs',
 ];
 
-$pathChecks = [];
-foreach ($paths as $label => $path) {
-    $exists = is_dir($path);
-    $writable = $exists ? is_writable($path) : false;
-    $pathChecks[$label] = [
-        'path' => $path,
-        'exists' => $exists,
-        'writable' => $writable,
-    ];
-}
+$pathChecks = buildPathChecks($paths);
 
 $timezone = date_default_timezone_get();
 $now = date('Y-m-d H:i:s');
 
 $projectsRoot = realpath(__DIR__ . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . 'projects');
-$projects = [];
-if ($projectsRoot !== false && is_dir($projectsRoot)) {
-    $items = scandir($projectsRoot);
-    if ($items !== false) {
-        foreach ($items as $item) {
-            if ($item === '.' || $item === '..') {
-                continue;
-            }
-
-            $itemPath = $projectsRoot . DIRECTORY_SEPARATOR . $item;
-            if (is_dir($itemPath)) {
-                $projects[] = $item;
-            }
-        }
-    }
-}
-sort($projects, SORT_NATURAL | SORT_FLAG_CASE);
+$projects = collectProjectsList($projectsRoot !== false ? $projectsRoot : '');
 ?>
 <!doctype html>
 <html lang="en">

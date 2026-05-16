@@ -1,7 +1,6 @@
 <?php
-$entries = scandir(__DIR__);
-$directories = [];
-$files = [];
+require_once __DIR__ . DIRECTORY_SEPARATOR . 'lib' . DIRECTORY_SEPARATOR . 'hub-data.php';
+
 $favoriteDirs = [
 	'_dashboard',
 	'projects',
@@ -15,47 +14,10 @@ $skipNames = [
 	'.gitignore',
 ];
 
-if ($entries !== false) {
-	foreach ($entries as $entry) {
-		if (in_array($entry, $skipNames, true)) {
-			continue;
-		}
-
-		$path = __DIR__ . DIRECTORY_SEPARATOR . $entry;
-		if (is_dir($path)) {
-			$directories[] = [
-				'name' => $entry,
-				'modified' => date('Y-m-d H:i:s', (int) filemtime($path)),
-			];
-			continue;
-		}
-
-		if (is_file($path)) {
-			$files[] = [
-				'name' => $entry,
-				'modified' => date('Y-m-d H:i:s', (int) filemtime($path)),
-			];
-		}
-	}
-}
-
-usort($directories, static function (array $a, array $b): int {
-	return strnatcasecmp($a['name'], $b['name']);
-});
-
-usort($files, static function (array $a, array $b): int {
-	return strnatcasecmp($a['name'], $b['name']);
-});
-
-$favorites = [];
-foreach ($favoriteDirs as $favoriteDir) {
-	foreach ($directories as $directory) {
-		if ($directory['name'] === $favoriteDir) {
-			$favorites[] = $directory;
-			break;
-		}
-	}
-}
+$entryData = collectHubEntries(__DIR__, $skipNames);
+$directories = $entryData['directories'];
+$files = $entryData['files'];
+$favorites = collectFavoriteDirectories($directories, $favoriteDirs);
 ?>
 <!doctype html>
 <html lang="en">

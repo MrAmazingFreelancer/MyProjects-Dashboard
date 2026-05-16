@@ -1,12 +1,7 @@
 <?php
-$defaultConfig = [
-    'host' => $_POST['host'] ?? '127.0.0.1',
-    'port' => $_POST['port'] ?? '3306',
-    'user' => $_POST['user'] ?? 'root',
-    'password' => $_POST['password'] ?? '',
-    'database' => $_POST['database'] ?? '',
-    'charset' => $_POST['charset'] ?? 'utf8mb4',
-];
+require_once __DIR__ . DIRECTORY_SEPARATOR . 'lib' . DIRECTORY_SEPARATOR . 'db-check-data.php';
+
+$defaultConfig = buildDbDefaultConfig($_POST);
 
 $result = null;
 $error = null;
@@ -41,7 +36,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     'message' => $ping
                         ? 'Connection established and ping succeeded.'
                         : 'Connection established but ping failed.',
-                    'db_selected' => $defaultConfig['database'] !== '' ? $defaultConfig['database'] : '(none)',
+                    'db_selected' => selectedDatabaseLabel($defaultConfig['database']),
                 ];
             } else {
                 $result = [
