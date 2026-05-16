@@ -20,14 +20,17 @@ const CONFIG = {
         limit: 8, // How many projects to display.
         exclude: {
           forks: false, // Forked projects will not be displayed if set to true.
-          projects: ['MrAmazingFreelancer'], // These projects will not be displayed. example: ['arifszn/my-project1', 'arifszn/my-project2']
+          projects: [], // These projects will not be displayed. example: ['arifszn/my-project1', 'arifszn/my-project2']
         },
       },
       manual: {
         // Properties for manually specifying projects
         projects: [
           'MrAmazingFreelancer/gitprofile',
-          'MrAmazingFreelancer/pandora',
+          'MrAmazingFreelancer/MyProjects-Dashboard',
+          'MrAmazingFreelancer/hometube',
+          'MrAmazingFreelancer/MrAmazingFreelancer',
+          'MrAmazingFreelancer/MrAmazingFreelancer.github.io',
         ], // List of repository names to display. example: ['arifszn/my-project1', 'arifszn/my-project2']
       },
     },
@@ -45,7 +48,11 @@ const CONFIG = {
       ],
     },
   },
-  seo: { title: 'Portfolio of MrA', description: '', imageURL: '' },
+  seo: {
+    title: 'Portfolio of MrAmazingFreelancer',
+    description: 'Projects and work by MrAmazingFreelancer.',
+    imageURL: '',
+  },
   social: {
     linkedin: '',
     x: '',
@@ -60,11 +67,11 @@ const CONFIG = {
     dribbble: '',
     behance: '',
     medium: '',
-    dev: '',
+    dev: 'MrAmazingFreelancer',
     stackoverflow: '', // example: '1/jeff-atwood'
     discord: '',
     telegram: '',
-    website: '',
+    website: 'https://github.com/MrAmazingFreelancer',
     phone: '',
     email: '',
   },
