@@ -55,11 +55,13 @@ testCase('collectHubEntries sorts and filters files and directories', function (
     $fixture = createHubFixture();
     try {
         $result = collectHubEntries($fixture, ['.', '..', '.gitignore']);
+        $directoriesByName = array_column($result['directories'], null, 'name');
+        $filesByName = array_column($result['files'], null, 'name');
 
         assertStrictEqual(['alpha', 'Bravo'], array_column($result['directories'], 'name'));
         assertStrictEqual(['Beta.txt', 'zeta.txt'], array_column($result['files'], 'name'));
-        assertStrictEqual(formatHubModifiedTime(1700000000), $result['directories'][1]['modified']);
-        assertStrictEqual(formatHubModifiedTime(1700000200), $result['files'][1]['modified']);
+        assertStrictEqual(formatHubModifiedTime(1700000000), $directoriesByName['Bravo']['modified']);
+        assertStrictEqual(formatHubModifiedTime(1700000200), $filesByName['zeta.txt']['modified']);
     } finally {
         removeTree($fixture);
     }

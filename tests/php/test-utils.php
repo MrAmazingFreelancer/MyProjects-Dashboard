@@ -13,7 +13,13 @@ function assertStrictEqual($expected, $actual, string $message = ''): void
 {
     if ($expected !== $actual) {
         $label = $message !== '' ? $message : 'Values are not identical.';
-        throw new RuntimeException($label . PHP_EOL . 'Expected: ' . var_export($expected, true) . PHP_EOL . 'Actual: ' . var_export($actual, true));
+        $details = sprintf(
+            "%s\nExpected:\n%s\nActual:\n%s",
+            $label,
+            var_export($expected, true),
+            var_export($actual, true)
+        );
+        throw new RuntimeException($details);
     }
 }
 
