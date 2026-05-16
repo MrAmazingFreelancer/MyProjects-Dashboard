@@ -23,8 +23,8 @@ testCase('buildPathChecks marks writable only when path exists', function (): vo
         }
     );
 
-    assertTrueValue($checks['good']['exists']);
-    assertTrueValue($checks['good']['writable']);
+    assertTrue($checks['good']['exists']);
+    assertTrue($checks['good']['writable']);
     assertSameValue(false, $checks['missing']['exists']);
     assertSameValue(false, $checks['missing']['writable']);
 });

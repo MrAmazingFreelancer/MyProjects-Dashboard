@@ -17,7 +17,7 @@ function assertSameValue($expected, $actual, string $message = ''): void
     }
 }
 
-function assertTrueValue(bool $value, string $message = ''): void
+function assertTrue(bool $value, string $message = ''): void
 {
     if (!$value) {
         throw new RuntimeException($message !== '' ? $message : 'Expected condition to be true.');

@@ -1,5 +1,8 @@
 <?php
 
+/**
+ * Formats a filesystem modification timestamp for dashboard display.
+ */
 function formatHubModifiedTime(int $timestamp): string
 {
     return date('Y-m-d H:i:s', $timestamp);
