@@ -56,10 +56,10 @@ testCase('collectHubEntries sorts and filters files and directories', function (
     try {
         $result = collectHubEntries($fixture, ['.', '..', '.gitignore']);
 
-        assertSameValue(['alpha', 'Bravo'], array_column($result['directories'], 'name'));
-        assertSameValue(['Beta.txt', 'zeta.txt'], array_column($result['files'], 'name'));
-        assertSameValue(formatHubModifiedTime(1700000000), $result['directories'][1]['modified']);
-        assertSameValue(formatHubModifiedTime(1700000200), $result['files'][1]['modified']);
+        assertStrictEqual(['alpha', 'Bravo'], array_column($result['directories'], 'name'));
+        assertStrictEqual(['Beta.txt', 'zeta.txt'], array_column($result['files'], 'name'));
+        assertStrictEqual(formatHubModifiedTime(1700000000), $result['directories'][1]['modified']);
+        assertStrictEqual(formatHubModifiedTime(1700000200), $result['files'][1]['modified']);
     } finally {
         removeTree($fixture);
     }
@@ -73,5 +73,5 @@ testCase('collectFavoriteDirectories keeps favorite order and skips missing', fu
     ];
 
     $favorites = collectFavoriteDirectories($directories, ['_dashboard', 'missing', 'projects']);
-    assertSameValue(['_dashboard', 'projects'], array_column($favorites, 'name'));
+    assertStrictEqual(['_dashboard', 'projects'], array_column($favorites, 'name'));
 });

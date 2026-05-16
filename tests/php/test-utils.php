@@ -9,7 +9,7 @@ function testCase(string $name, callable $fn): void
     $GLOBALS['test_cases'][] = [$name, $fn];
 }
 
-function assertSameValue($expected, $actual, string $message = ''): void
+function assertStrictEqual($expected, $actual, string $message = ''): void
 {
     if ($expected !== $actual) {
         $label = $message !== '' ? $message : 'Values are not identical.';
@@ -27,11 +27,21 @@ function assertTrue(bool $value, string $message = ''): void
 function runAllTests(): void
 {
     $passed = 0;
+    $failed = 0;
     foreach ($GLOBALS['test_cases'] as [$name, $fn]) {
-        $fn();
-        echo "PASS: {$name}\n";
-        $passed++;
+        try {
+            $fn();
+            echo "PASS: {$name}\n";
+            $passed++;
+        } catch (Throwable $throwable) {
+            echo "FAIL: {$name}\n";
+            echo $throwable->getMessage() . "\n";
+            $failed++;
+        }
     }
 
-    echo "Completed {$passed} tests.\n";
+    echo "Completed {$passed} passing and {$failed} failing tests.\n";
+    if ($failed > 0) {
+        exit(1);
+    }
 }

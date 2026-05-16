@@ -2,6 +2,7 @@
 
 /**
  * @param array<int, string> $extensions
+ * @param callable(string): bool|null $extensionLoaded Optional dependency-injected extension checker for tests.
  * @return array<string, bool>
  */
 function buildExtensionChecks(array $extensions, ?callable $extensionLoaded = null): array
@@ -18,6 +19,8 @@ function buildExtensionChecks(array $extensions, ?callable $extensionLoaded = nu
 
 /**
  * @param array<string, string> $paths
+ * @param callable(string): bool|null $isDir Optional dependency-injected directory checker for tests.
+ * @param callable(string): bool|null $isWritable Optional dependency-injected writable checker for tests.
  * @return array<string, array{path: string, exists: bool, writable: bool}>
  */
 function buildPathChecks(array $paths, ?callable $isDir = null, ?callable $isWritable = null): array
@@ -40,6 +43,8 @@ function buildPathChecks(array $paths, ?callable $isDir = null, ?callable $isWri
 }
 
 /**
+ * @param callable(string): array<int, string>|false|null $scandirFn Optional dependency-injected directory lister for tests.
+ * @param callable(string): bool|null $isDirFn Optional dependency-injected directory checker for tests.
  * @return array<int, string>
  */
 function collectProjectsList(string $projectsRoot, ?callable $scandirFn = null, ?callable $isDirFn = null): array

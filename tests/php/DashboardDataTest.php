@@ -9,7 +9,7 @@ testCase('buildExtensionChecks maps extension status', function (): void {
         return $extension === 'a';
     });
 
-    assertSameValue(['a' => true, 'b' => false], $checks);
+    assertStrictEqual(['a' => true, 'b' => false], $checks);
 });
 
 testCase('buildPathChecks marks writable only when path exists', function (): void {
@@ -25,8 +25,8 @@ testCase('buildPathChecks marks writable only when path exists', function (): vo
 
     assertTrue($checks['good']['exists']);
     assertTrue($checks['good']['writable']);
-    assertSameValue(false, $checks['missing']['exists']);
-    assertSameValue(false, $checks['missing']['writable']);
+    assertStrictEqual(false, $checks['missing']['exists']);
+    assertStrictEqual(false, $checks['missing']['writable']);
 });
 
 testCase('collectProjectsList filters non-directories and sorts naturally', function (): void {
@@ -44,5 +44,5 @@ testCase('collectProjectsList filters non-directories and sorts naturally', func
         }
     );
 
-    assertSameValue(['project2', 'project10'], $projects);
+    assertStrictEqual(['project2', 'project10'], $projects);
 });
