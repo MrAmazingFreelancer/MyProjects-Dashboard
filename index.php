@@ -219,7 +219,7 @@ foreach ($favoriteDirs as $favoriteDir) {
 	<main class="wrap">
 		<header class="head">
 			<h1>MyProjects Hub</h1>
-			<p class="sub">Central homepage for everything inside htdocs</p>
+			<p class="sub">Central homepage for everything inside MyProjects-Dashboard</p>
 			<div class="quick">
 				<a class="pill" href="/_dashboard/">Open Dashboard</a>
 				<a class="pill" href="/projects/">Open Shared Projects</a>
@@ -281,7 +281,7 @@ foreach ($favoriteDirs as $favoriteDir) {
 			<section class="howto">
 				<h2>Create New Project</h2>
 				<p class="empty">Use your shared template generator script from PowerShell:</p>
-				<div class="code">Set-Location D:\xampp\htdocs; .\scripts\new-project.ps1 -Name my-new-project</div>
+				<div class="code">Set-Location D:\MyProjects-Dashboard; .\scripts\new-project.ps1 -Name my-new-project</div>
 				<p class="empty" style="margin-top:10px;">Then open: <a href="/projects/" style="color:#0369a1;font-weight:700;text-decoration:none;">/projects/</a></p>
 			</section>
 		</div>

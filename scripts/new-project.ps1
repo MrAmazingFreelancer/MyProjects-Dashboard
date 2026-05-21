@@ -4,7 +4,7 @@ param(
     [string]$BasePath = "D:\Projects"
 )
 
-$templatePath = "D:\xampp\htdocs\_templates\project-root"
+$templatePath = "D:\MyProjects-Dashboard\_templates\project-root"
 if (!(Test-Path $templatePath)) {
     throw "Template path not found: $templatePath"
 }

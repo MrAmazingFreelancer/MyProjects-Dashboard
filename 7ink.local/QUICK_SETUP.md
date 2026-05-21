@@ -2,7 +2,7 @@
 
 ## Step 1: Deploy to Vercel (5 min)
 ```bash
-cd D:\xampp\htdocs\7ink.local
+cd D:\MyProjects-Dashboard\7ink.local
 git init
 git add .
 git commit -m "Initial"

@@ -22,7 +22,7 @@
 
 ### Step 1B: Push Your Code to GitHub
 ```bash
-cd D:\xampp\htdocs\7ink.local
+cd D:\MyProjects-Dashboard\7ink.local
 git init
 git add .
 git commit -m "Initial commit: 7ink.com.au website"

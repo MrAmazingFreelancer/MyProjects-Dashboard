@@ -6,11 +6,11 @@ $checks = [
     'mbstring' => extension_loaded('mbstring'),
 ];
 
-$xamppRoot = realpath(__DIR__ . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . '..');
+$projectRoot = realpath(__DIR__ . DIRECTORY_SEPARATOR . '..');
 $paths = [
-    'htdocs' => $xamppRoot . DIRECTORY_SEPARATOR . 'htdocs',
-    'tmp' => $xamppRoot . DIRECTORY_SEPARATOR . 'tmp',
-    'apache logs' => $xamppRoot . DIRECTORY_SEPARATOR . 'apache' . DIRECTORY_SEPARATOR . 'logs',
+    'project root' => $projectRoot,
+    'projects' => $projectRoot . DIRECTORY_SEPARATOR . 'projects',
+    'scripts' => $projectRoot . DIRECTORY_SEPARATOR . 'scripts',
 ];
 
 $pathChecks = [];
@@ -261,7 +261,7 @@ sort($projects, SORT_NATURAL | SORT_FLAG_CASE);
                     <?php endforeach; ?>
                 </div>
                 <?php else: ?>
-                <p class="project-empty">No projects found in htdocs/projects yet.</p>
+                <p class="project-empty">No projects found in projects/ yet.</p>
                 <?php endif; ?>
             </section>
         </div>
