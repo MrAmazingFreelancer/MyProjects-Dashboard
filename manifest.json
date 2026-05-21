@@ -1,0 +1,37 @@
+{
+   "action": {
+      "default_title": "__MSG_page_action__"
+   },
+   "background": {
+      "service_worker": "worker.js"
+   },
+   "commands": {
+      "_execute_action": {}
+   },
+   "default_locale": "en",
+   "description": "__MSG_description__",
+   "homepage_url": "https://webextension.org/listing/open-in-vlc.html",
+   "host_permissions": [ "<all_urls>" ],
+   "icons": {
+      "16": "/data/icons/16.png",
+      "32": "/data/icons/32.png",
+      "48": "/data/icons/48.png",
+      "64": "/data/icons/64.png",
+      "128": "/data/icons/128.png",
+      "256": "/data/icons/256.png",
+      "512": "/data/icons/512.png"
+   },
+   "manifest_version": 3,
+   "name": "Open in VLC™ media player",
+   "optional_permissions": [ "downloads" ],
+   "options_ui": {
+      "open_in_tab": true,
+      "page": "/data/options/index.html"
+   },
+   "permissions": [ "storage", "contextMenus", "nativeMessaging", "webRequest", "scripting" ],
+   "version": "0.4.3",
+   "web_accessible_resources": [ {
+      "matches": [ "http://*/*", "https://*/*" ],
+      "resources": [ "/data/inject/*" ]
+   } ]
+}
