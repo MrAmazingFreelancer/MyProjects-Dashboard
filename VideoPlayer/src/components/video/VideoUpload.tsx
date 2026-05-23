@@ -18,9 +18,60 @@ export default function VideoUpload() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
 
+  const toUploadErrorMessage = (err: unknown): string => {
+    if (err instanceof Error) {
+      const msg = err.message || "Upload failed";
+      const lower = msg.toLowerCase();
+      if (lower.includes("network error") || lower.includes("failed to fetch")) {
+        return "Network error while uploading. Disable ad-blocker/VPN for this site and retry.";
+      }
+      return msg;
+    }
+
+    return "Upload failed";
+  };
+
   const uploadFile = async (file: File, folder: string) => {
-    const auth = await fetch("/api/upload-auth").then((r) => r.json());
-    return upload({ file, fileName: file.name, folder, ...auth });
+    const authRes = await fetch("/api/upload-auth");
+    const auth = await authRes.json();
+
+    if (!authRes.ok) {
+      throw new Error(auth?.error || "Failed to get upload credentials");
+    }
+
+    if (!auth?.publicKey) {
+      throw new Error("Upload auth missing public key");
+    }
+
+    if (!auth?.token || !auth?.signature || !auth?.expire) {
+      throw new Error("Upload auth payload is incomplete");
+    }
+
+    let lastError: unknown;
+    for (let attempt = 0; attempt < 2; attempt += 1) {
+      try {
+        return await upload({
+          file,
+          fileName: file.name,
+          folder,
+          ...auth,
+          publicKey: auth.publicKey,
+        });
+      } catch (err) {
+        lastError = err;
+        const message = err instanceof Error ? err.message.toLowerCase() : "";
+        const isNetworkError =
+          message.includes("network error") || message.includes("failed to fetch");
+
+        if (!isNetworkError || attempt === 1) {
+          break;
+        }
+
+        await new Promise((resolve) => setTimeout(resolve, 600));
+      }
+    }
+
+    throw new Error(toUploadErrorMessage(lastError));
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -54,11 +105,21 @@ export default function VideoUpload() {
         }),
       });
 
-      if (!res.ok) throw new Error("Failed to save");
+      if (!res.ok) {
+        const body = await res.json().catch(() => null);
+        throw new Error(body?.error || "Failed to save");
+      }
       const { video } = await res.json();
-      router.push(`/watch/${video.id}`);
+      const params = new URLSearchParams({
+        title: video.title || form.title || files.video.name,
+        description: video.description || form.description || "",
+        filePath: video.filePath || videoRes.filePath || "",
+        fileName: video.fileName || videoRes.name || files.video.name,
+        thumbnailPath: video.thumbnailPath || thumbRes?.filePath || "",
+      });
+      router.push(`/watch/${video.id}?${params.toString()}`);
     } catch (err) {
-      setError(err instanceof Error ? err.message : "Upload failed");
+      setError(toUploadErrorMessage(err));
       setLoading(false);
     }
   };

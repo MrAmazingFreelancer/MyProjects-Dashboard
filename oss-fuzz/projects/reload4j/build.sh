@@ -15,8 +15,11 @@
 #
 ################################################################################
 
-MVN_FLAGS="-Dmaven.compiler.source=15 -Dmaven.compiler.target=15 -DskipTests -Djdk.version=15"
+MVN_FLAGS="-Dmaven.compiler.source=15 -Dmaven.compiler.target=15 -DskipTests -Djdk.version=15 -Dmaven.compiler.compilerArgs=--add-exports=java.rmi/sun.rmi.runtime=ALL-UNNAMED"
 ALL_JARS=""
+
+# reload4j uses sun.rmi.runtime in NewAsyncAppender; export it for JDK 9+ module checks.
+export JAVA_TOOL_OPTIONS="--add-exports=java.rmi/sun.rmi.runtime=ALL-UNNAMED ${JAVA_TOOL_OPTIONS:-}"
 
 # install the build servers' jazzer-api into the maven repository
 pushd "/tmp"

@@ -14,28 +14,33 @@ A video player built with Next.js and ImageKit featuring adaptive streaming, sub
 ## Setup
 
 1. Install dependencies:
+
 ```bash
 npm install
 ```
 
-2. Create `.env.local` from the example:
+1. Create `.env.local` from the example:
+
 ```bash
 cp .env.local.example .env.local
 ```
 
-3. Add your ImageKit credentials to `.env.local`:
+1. Add your ImageKit credentials to `.env.local`:
+
 ```env
 NEXT_PUBLIC_IMAGEKIT_URL_ENDPOINT=https://ik.imagekit.io/your_imagekit_id
 IMAGEKIT_PUBLIC_KEY=your_public_key
 IMAGEKIT_PRIVATE_KEY=your_private_key
+BLOB_READ_WRITE_TOKEN=your_vercel_blob_read_write_token
 ```
 
-4. Run the dev server:
+1. Run the dev server:
+
 ```bash
 npm run dev
 ```
 
-5. Open http://localhost:3000
+1. Open [http://localhost:3000](http://localhost:3000)
 
 ## ImageKit Features Used
 
@@ -44,6 +49,12 @@ npm run dev
 - **Subtitle Overlays**: `l-subtitles,i-subtitles.srt`
 - **Image Watermarks**: `l-image,i-watermark.png`
 - **Quality Control**: `tr=q-70`
+
+## Avatar Upload Route
+
+- Open `/avatar` to upload JPEG, PNG, or WebP avatar images.
+- The upload endpoint stores images in Vercel Blob via `/api/avatar/upload`.
+- The view endpoint resolves blob pathnames via `/api/avatar/view`.
 
 ## Resources
 

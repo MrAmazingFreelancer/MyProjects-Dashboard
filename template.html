@@ -1,0 +1,166 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Page Title</title>
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    * { box-sizing: border-box; }
+
+    .wrap {
+      position: relative;
+      z-index: 2;
+      width: min(1080px, calc(100% - 24px));
+      margin: 80px auto 40px;
+      background: var(--theme-panel);
+      border: 1px solid var(--theme-line);
+      border-radius: 16px;
+      box-shadow: 0 28px 70px rgba(0, 0, 0, 0.38);
+      backdrop-filter: blur(8px);
+      overflow: hidden;
+    }
+
+    .head {
+      padding: 22px 24px;
+      border-bottom: 1px solid var(--theme-line);
+      background: rgba(11, 11, 14, 0.72);
+    }
+
+    .head h1 {
+      margin: 0;
+      font-family: "Segoe UI", sans-serif;
+      font-size: clamp(1.3rem, 2.7vw, 1.9rem);
+      color: var(--theme-ink);
+    }
+
+    .head p {
+      margin: 8px 0 0;
+      color: var(--theme-muted);
+      font-family: "Segoe UI", sans-serif;
+    }
+
+    .content {
+      padding: 24px;
+      font-family: "Segoe UI", sans-serif;
+      color: var(--theme-ink);
+    }
+
+    /* Nav */
+    .site-nav {
+      position: fixed;
+      top: 12px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 10;
+      width: min(1080px, calc(100% - 24px));
+      border: 1px solid var(--theme-line);
+      border-radius: 14px;
+      background: rgba(11, 11, 14, 0.72);
+      backdrop-filter: blur(8px);
+    }
+
+    .site-nav-inner {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      padding: 11px 14px;
+    }
+
+    .site-brand {
+      color: #fff;
+      text-decoration: none;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      font-weight: 800;
+      font-size: 0.95rem;
+      font-family: "Segoe UI", sans-serif;
+    }
+
+    .site-brand::first-letter { color: var(--theme-accent); }
+
+    .site-links { display: flex; flex-wrap: wrap; gap: 8px; }
+
+    .site-link {
+      text-decoration: none;
+      color: #fff;
+      background: #1d1d22;
+      border: 1px solid #4a4a53;
+      border-radius: 999px;
+      padding: 7px 11px;
+      font-size: 0.85rem;
+      font-weight: 700;
+      font-family: "Segoe UI", sans-serif;
+      transition: border-color 150ms, background 150ms;
+    }
+
+    .site-link:hover,
+    .site-link.active {
+      border-color: var(--theme-accent);
+      background: rgba(255, 58, 30, 0.2);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Particles background layer -->
+  <div id="particles-js" aria-hidden="true"></div>
+
+  <!-- Nav -->
+  <header class="site-nav">
+    <div class="site-nav-inner">
+      <a class="site-brand" href="/index.php">7InkCo Dashboard</a>
+      <nav class="site-links" aria-label="Primary">
+        <a class="site-link" href="/index.php">Hub</a>
+        <a class="site-link" href="/_dashboard/">XAMPP Dashboard</a>
+        <a class="site-link" href="/_dashboard/db-check.php">MySQL Check</a>
+        <a class="site-link" href="/projects/">Shared Projects</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Main content -->
+  <main class="wrap">
+    <header class="head">
+      <h1>Page Title</h1>
+      <p>Page subtitle or description goes here.</p>
+    </header>
+
+    <div class="content">
+      <p>Your content goes here.</p>
+    </div>
+  </main>
+
+  <!-- Particles.js -->
+  <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+  <script>
+    particlesJS('particles-js', {
+      particles: {
+        number: { value: 70, density: { enable: true, value_area: 900 } },
+        color: { value: '#ffffff' },
+        shape: { type: 'circle' },
+        opacity: { value: 0.35, random: true },
+        size: { value: 2.8, random: true },
+        line_linked: { enable: true, distance: 130, color: '#ffffff', opacity: 0.2, width: 1 },
+        move: { enable: true, speed: 1.8, direction: 'none', out_mode: 'out' }
+      },
+      interactivity: {
+        detect_on: 'canvas',
+        events: {
+          onhover: { enable: true, mode: 'grab' },
+          onclick: { enable: true, mode: 'push' },
+          resize: true
+        },
+        modes: {
+          grab: { distance: 150, line_linked: { opacity: 0.45 } },
+          push: { particles_nb: 3 }
+        }
+      },
+      retina_detect: true
+    });
+  </script>
+
+</body>
+</html>

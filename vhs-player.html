@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>VHS Player — Video.js 8 + HLS/DASH</title>
+  <link href="https://unpkg.com/video.js@8/dist/video-js.min.css" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    a { text-decoration: none; color: inherit; }
+
+    :root {
+      --theme-bg: #0f0f10;
+      --theme-panel: rgba(26, 26, 31, 0.78);
+      --theme-ink: #f1f1f1;
+      --theme-muted: #b9bcc4;
+      --theme-line: rgba(255, 255, 255, 0.16);
+      --theme-line-strong: #333741;
+      --theme-accent: #ff6a57;
+      --theme-accent-soft: rgba(255, 58, 30, 0.15);
+      --theme-ok: #22c55e;
+      --theme-bad: #ef4444;
+    }
+
+    body {
+      font-family: 'Courier New', monospace;
+      margin: 0;
+      min-height: 100vh;
+      overflow-x: hidden;
+      background: #111114;
+      color: var(--theme-ink);
+    }
+
+    #particles-js {
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      background:
+        radial-gradient(circle at 18% 15%, rgba(255, 60, 29, 0.12), transparent 38%),
+        radial-gradient(circle at 82% 8%, rgba(90, 102, 255, 0.12), transparent 30%),
+        linear-gradient(180deg, #111114 0%, #0a0a0c 100%);
+    }
+
+    .wrap {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 2rem;
+      position: relative;
+      z-index: 1;
+    }
+
+    .header {
+      display: flex;
+      align-items: baseline;
+      gap: 1rem;
+      margin-bottom: 2rem;
+    }
+
+    .logo {
+      font-size: 1.1rem;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--theme-accent);
+      font-weight: bold;
+    }
+
+    .badge {
+      font-size: 0.65rem;
+      background: rgba(26, 26, 31, 0.9);
+      border: 1px solid var(--theme-line-strong);
+      color: var(--theme-muted);
+      padding: 2px 8px;
+      letter-spacing: 0.15em;
+    }
+
+    .player-shell {
+      background: rgba(10, 10, 14, 0.92);
+      border: 1px solid var(--theme-line-strong);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .player-shell::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 2px;
+      background: var(--theme-accent);
+      z-index: 10;
+    }
+
+    #player-wrapper {
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      position: relative;
+      background: #050508;
+    }
+
+    #my-player {
+      width: 100% !important;
+      height: 100% !important;
+    }
+
+    .controls-bar {
+      padding: 1rem 1.25rem;
+      background: rgba(12, 12, 18, 0.96);
+      border-top: 1px solid var(--theme-line-strong);
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 0.75rem;
+      align-items: end;
+    }
+
+    .src-group {
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
+    }
+
+    .src-label {
+      font-size: 0.65rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: #555;
+    }
+
+    .src-row {
+      display: flex;
+      gap: 0.5rem;
+    }
+
+    #stream-url {
+      flex: 1;
+      background: #0a0a0f;
+      border: 1px solid var(--theme-line-strong);
+      color: var(--theme-ink);
+      font-family: 'Courier New', monospace;
+      font-size: 0.8rem;
+      padding: 0.5rem 0.75rem;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+
+    #stream-url:focus { border-color: var(--theme-accent); }
+    #stream-url::placeholder { color: #444; }
+
+    #load-btn {
+      background: var(--theme-accent);
+      color: #fff;
+      border: none;
+      font-family: 'Courier New', monospace;
+      font-size: 0.75rem;
+      font-weight: bold;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 0.5rem 1rem;
+      cursor: pointer;
+      transition: filter 0.15s, transform 0.1s;
+      white-space: nowrap;
+    }
+
+    #load-btn:hover { filter: brightness(1.1); }
+    #load-btn:active { transform: scale(0.97); }
+
+    .presets {
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
+      min-width: 160px;
+    }
+
+    .presets-label {
+      font-size: 0.65rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: #555;
+    }
+
+    .preset-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0.3rem;
+    }
+
+    .preset-btn {
+      background: none;
+      border: 1px solid var(--theme-line-strong);
+      color: var(--theme-muted);
+      font-family: 'Courier New', monospace;
+      font-size: 0.7rem;
+      padding: 0.3rem 0.6rem;
+      cursor: pointer;
+      text-align: left;
+      letter-spacing: 0.05em;
+      transition: border-color 0.15s, color 0.15s, background 0.15s;
+    }
+
+    .preset-btn:hover {
+      border-color: var(--theme-accent);
+      color: var(--theme-accent);
+      background: var(--theme-accent-soft);
+    }
+
+    .stats-bar {
+      padding: 0.6rem 1.25rem;
+      background: rgba(6, 6, 10, 0.97);
+      border-top: 1px solid rgba(255, 255, 255, 0.06);
+      display: flex;
+      gap: 2rem;
+      font-size: 0.68rem;
+      letter-spacing: 0.1em;
+      color: #444;
+      flex-wrap: wrap;
+    }
+
+    .stat { display: flex; gap: 0.4rem; align-items: center; }
+    .stat-label { text-transform: uppercase; }
+    .stat-val { color: var(--theme-accent); }
+
+    .msg-overlay {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(5, 5, 8, 0.85);
+      font-size: 0.8rem;
+      letter-spacing: 0.1em;
+      color: #444;
+      pointer-events: none;
+      z-index: 5;
+      transition: opacity 0.3s;
+    }
+
+    .msg-overlay.hidden { opacity: 0; }
+
+    @media (max-width: 600px) {
+      .controls-bar { grid-template-columns: 1fr; }
+      .stats-bar { gap: 1rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <div id="particles-js"></div>
+
+  <div class="wrap">
+    <div class="header">
+      <span class="logo">▶ VHS Player</span>
+      <span class="badge">Video.js 8 + VHS 3.17.2</span>
+    </div>
+
+    <div class="player-shell">
+      <div id="player-wrapper">
+        <video-js id="my-player"
+          class="vjs-default-skin vjs-big-play-centered"
+          controls
+          preload="auto">
+        </video-js>
+        <div class="msg-overlay" id="msg-overlay">NO SOURCE LOADED</div>
+      </div>
+
+      <div class="controls-bar">
+        <div class="src-group">
+          <span class="src-label">Stream URL (.m3u8 / .mpd / .mp4)</span>
+          <div class="src-row">
+            <input type="text" id="stream-url" placeholder="https://example.com/stream/index.m3u8" />
+            <button id="load-btn" onclick="loadSource()">Load ▶</button>
+          </div>
+        </div>
+        <div class="presets">
+          <span class="presets-label">Demo Streams</span>
+          <div class="preset-list">
+            <button class="preset-btn" onclick="loadPreset('https://d2zihajmogu5jn.cloudfront.net/bipbop-advanced/bipbop_16x9_variant.m3u8')">HLS — Bipbop</button>
+            <button class="preset-btn" onclick="loadPreset('https://storage.googleapis.com/shaka-demo-assets/angel-one/dash.mpd')">DASH — Angel One</button>
+            <button class="preset-btn" onclick="loadPreset('https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4')">MP4 — Big Buck Bunny</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="stats-bar">
+        <div class="stat"><span class="stat-label">Format</span><span class="stat-val" id="stat-fmt">—</span></div>
+        <div class="stat"><span class="stat-label">Resolution</span><span class="stat-val" id="stat-res">—</span></div>
+        <div class="stat"><span class="stat-label">Bandwidth</span><span class="stat-val" id="stat-bw">—</span></div>
+        <div class="stat"><span class="stat-label">Status</span><span class="stat-val" id="stat-status">idle</span></div>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://unpkg.com/video.js@8/dist/video.min.js"></script>
+  <!-- FIX: use explicit npm/ path for reliable CDN delivery -->
+  <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+  <script>
+    window.addEventListener('load', function () {
+      if (typeof particlesJS !== 'undefined') {
+        particlesJS('particles-js', {
+          particles: {
+            number: { value: 60, density: { enable: true, value_area: 800 } },
+            color: { value: ['#ff6a57', '#5a66ff', '#ffffff'] },
+            shape: { type: 'circle' },
+            opacity: {
+              value: 0.25, random: true,
+              anim: { enable: true, speed: 0.8, opacity_min: 0.05, sync: false }
+            },
+            size: { value: 2.5, random: true },
+            line_linked: {
+              enable: true, distance: 130,
+              color: '#333741', opacity: 0.3, width: 1
+            },
+            move: {
+              enable: true, speed: 0.8, direction: 'none',
+              random: true, straight: false, out_mode: 'out'
+            }
+          },
+          interactivity: {
+            detect_on: 'canvas',
+            events: {
+              onhover: { enable: true, mode: 'grab' },
+              onclick: { enable: true, mode: 'push' },
+              resize: true
+            },
+            modes: {
+              grab: { distance: 120, line_linked: { opacity: 0.6 } },
+              push: { particles_nb: 3 }
+            }
+          },
+          retina_detect: true
+        });
+      }
+
+      var player = videojs('my-player', {
+        html5: {
+          vhs: {
+            overrideNative: true,
+            enableLowInitialPlaylist: true,
+            useBandwidthFromLocalStorage: true
+          }
+        },
+        controls: true,
+        fluid: false
+      });
+
+      function getType(u) {
+        if (u.includes('.m3u8')) return 'application/x-mpegURL';
+        if (u.includes('.mpd'))  return 'application/dash+xml';
+        return 'video/mp4';
+      }
+
+      function getLabel(u) {
+        if (u.includes('.m3u8')) return 'HLS';
+        if (u.includes('.mpd'))  return 'DASH';
+        return 'MP4';
+      }
+
+      function setStatus(s) {
+        document.getElementById('stat-status').textContent = s;
+      }
+
+      // FIX: handle play() Promise to avoid unhandled rejection on autoplay block
+      function safePlay() {
+        var p = player.play();
+        if (p && typeof p.then === 'function') {
+          p.catch(function (err) {
+            if (err.name !== 'AbortError') setStatus('autoplay blocked');
+          });
+        }
+      }
+
+      window.loadSource = function () {
+        var u = document.getElementById('stream-url').value.trim();
+        if (!u) return;
+        setStatus('loading…');
+        player.src({ src: u, type: getType(u) });
+        safePlay();
+        document.getElementById('stat-fmt').textContent = getLabel(u);
+        document.getElementById('msg-overlay').classList.add('hidden');
+      };
+
+      window.loadPreset = function (u) {
+        document.getElementById('stream-url').value = u;
+        setStatus('loading…');
+        player.src({ src: u, type: getType(u) });
+        safePlay();
+        document.getElementById('stat-fmt').textContent = getLabel(u);
+        document.getElementById('msg-overlay').classList.add('hidden');
+      };
+
+      player.on('playing',        function () { setStatus('playing'); });
+      player.on('pause',          function () { setStatus('paused'); });
+      player.on('waiting',        function () { setStatus('buffering…'); });
+      player.on('ended',          function () { setStatus('ended'); });
+      player.on('error',          function () { setStatus('error'); });
+      player.on('loadedmetadata', function () {
+        document.getElementById('stat-res').textContent =
+          player.videoWidth() + '×' + player.videoHeight();
+        setStatus('ready');
+        try {
+          // FIX: Video.js 8 requires object arg, not boolean true
+          var vhs = player.tech({ IWillNotUseInternalApiBecauseIKnowItWillBreak: true }).vhs;
+          if (vhs && vhs.bandwidth)
+            document.getElementById('stat-bw').textContent =
+              Math.round(vhs.bandwidth / 1000) + ' kbps';
+        } catch (e) {}
+      });
+      player.on('timeupdate', function () {
+        try {
+          // FIX: Video.js 8 requires object arg, not boolean true
+          var vhs = player.tech({ IWillNotUseInternalApiBecauseIKnowItWillBreak: true }).vhs;
+          if (vhs && vhs.bandwidth)
+            document.getElementById('stat-bw').textContent =
+              Math.round(vhs.bandwidth / 1000) + ' kbps';
+        } catch (e) {}
+      });
+    }); // end window load
+  </script>
+</body>
+</html>

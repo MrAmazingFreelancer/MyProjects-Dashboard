@@ -29,6 +29,7 @@ WORKDIR ${SRC}
 RUN git clone https://github.com/qos-ch/reload4j
 COPY remove-jdk8-cap.diff $SRC/
 RUN  cd reload4j && (for i in ${SRC}/remove-jdk8-cap.diff; do tr -d '\015' < $i | git apply; done )
+RUN sed -i '/import sun.rmi.runtime.Log;/d' ${SRC}/reload4j/src/main/java/org/apache/log4j/NewAsyncAppender.java
 
 ADD pom.xml build.sh ${SRC}/
 ADD src/ ${SRC}/src/

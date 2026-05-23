@@ -10,7 +10,9 @@ interface Props {
 }
 
 export default function VideoLibrary({ videos }: Props) {
-  const urlEndpoint = process.env.NEXT_PUBLIC_IMAGEKIT_URL_ENDPOINT || "";
+  const urlEndpoint =
+    process.env.NEXT_PUBLIC_IMAGEKIT_URL_ENDPOINT ||
+    "https://ik.imagekit.io/mramazing/VPData";
 
   if (videos.length === 0) {
     return (

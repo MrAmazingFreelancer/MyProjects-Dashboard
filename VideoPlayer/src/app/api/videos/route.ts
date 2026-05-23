@@ -21,16 +21,23 @@ export async function GET() {
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json();
+
+    if (!body.filePath || !body.fileName) {
+      return NextResponse.json(
+        { error: "filePath and fileName are required" },
+        { status: 400 }
+      );
+    }
     
     const video: Video = {
-      id: uuidv4(),
+      id: body.id || uuidv4(),
       title: body.title || "Untitled Video",
       description: body.description || "",
       filePath: body.filePath,
       fileName: body.fileName,
       thumbnailPath: body.thumbnailPath || "",
       duration: body.duration,
-      createdAt: new Date().toISOString(),
+      createdAt: body.createdAt || new Date().toISOString(),
       subtitles: body.subtitles || [],
       watermark: body.watermark,
     };
@@ -39,8 +46,9 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ video: savedVideo }, { status: 201 });
   } catch (error) {
     console.error("Error creating video:", error);
+    const message = error instanceof Error ? error.message : "Failed to create video";
     return NextResponse.json(
-      { error: "Failed to create video" },
+      { error: message },
       { status: 500 }
     );
   }

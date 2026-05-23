@@ -1,0 +1,2 @@
+samples\quickstart\service\pojo\StockQuoteService.class
+org\apache\axis2\HttpInterfaceFuzzer.class

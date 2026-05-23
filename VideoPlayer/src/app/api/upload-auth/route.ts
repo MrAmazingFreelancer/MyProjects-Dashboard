@@ -3,12 +3,19 @@ import { NextResponse } from "next/server";
 
 export async function GET() {
   try {
-    const privateKey = process.env.IMAGEKIT_PRIVATE_KEY;
-    const publicKey = process.env.IMAGEKIT_PUBLIC_KEY;
+    const privateKey = process.env.IMAGEKIT_PRIVATE_KEY?.trim();
+    const publicKey = process.env.IMAGEKIT_PUBLIC_KEY?.trim();
 
-    if (!privateKey || !publicKey) {
+    if (!privateKey) {
       return NextResponse.json(
-        { error: "ImageKit keys not configured" },
+        { error: "ImageKit private key is not configured" },
+        { status: 500 }
+      );
+    }
+
+    if (!publicKey) {
+      return NextResponse.json(
+        { error: "ImageKit public key is not configured" },
         { status: 500 }
       );
     }

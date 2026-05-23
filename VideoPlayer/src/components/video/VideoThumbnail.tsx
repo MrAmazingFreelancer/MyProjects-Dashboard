@@ -11,8 +11,19 @@ interface Props {
 }
 
 export default function VideoThumbnail({ video, urlEndpoint }: Props) {
+  const watchHref = {
+    pathname: `/watch/${video.id}`,
+    query: {
+      title: video.title,
+      description: video.description,
+      filePath: video.filePath,
+      fileName: video.fileName,
+      thumbnailPath: video.thumbnailPath || "",
+    },
+  };
+
   return (
-    <Link href={`/watch/${video.id}`}>
+    <Link href={watchHref}>
       <div className="thumbnail-card">
         <Image
           urlEndpoint={urlEndpoint}

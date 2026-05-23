@@ -1,28 +1,33 @@
 .library-empty {
   text-align: center;
-  padding: 3rem 0;
+  padding: 4rem 1rem;
+  border: 1px dashed rgba(148, 163, 184, 0.2);
+  border-radius: 24px;
+  background: rgba(15, 23, 42, 0.5);
 }
 
 .library-empty-text {
-  color: #9ca3af;
+  color: #cbd5e1;
   margin-bottom: 1rem;
+  font-size: 1.05rem;
 }
 
 .library-upload-button {
-  background: #2563eb;
-  padding: 0.5rem 1rem;
-  border-radius: 4px;
+  background: linear-gradient(135deg, #10b981, #059669);
+  padding: 0.7rem 1.1rem;
+  border-radius: 999px;
   display: inline-block;
+  font-weight: 700;
 }
 
 .library-upload-button:hover {
-  background: #1d4ed8;
+  filter: brightness(1.08);
 }
 
 .library-grid {
   display: grid;
   grid-template-columns: repeat(1, 1fr);
-  gap: 1.5rem;
+  gap: 1.35rem;
 }
 
 @media (min-width: 640px) {

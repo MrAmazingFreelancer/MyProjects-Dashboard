@@ -8,7 +8,9 @@ interface VideoPlayerProps {
 }
 
 export default function VideoPlayer({ video }: VideoPlayerProps) {
-  const urlEndpoint = process.env.NEXT_PUBLIC_IMAGEKIT_URL_ENDPOINT || "";
+  const urlEndpoint =
+    process.env.NEXT_PUBLIC_IMAGEKIT_URL_ENDPOINT ||
+    "https://ik.imagekit.io/mramazing/VPData";
 
   return (
     <div className="video-player-wrapper">
