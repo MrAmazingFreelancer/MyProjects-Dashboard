@@ -1,0 +1,9 @@
+# Build outputs
+**/target/
+
+# Nested worktree folders
+webdav.worktrees/
+
+# Nested repositories managed separately
+7ink-website/
+Dashboard/_push_v10/

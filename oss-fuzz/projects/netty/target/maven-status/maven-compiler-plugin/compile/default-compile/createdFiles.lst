@@ -1,3 +1,0 @@
-io\netty\buffer\ByteBufUtilFuzzer.class
-io\netty\buffer\LongLongHashMapFuzzer.class
-io\netty\handler\codec\http\cookie\ServerCookieDecoderFuzzer.class
