@@ -1,6 +1,3 @@
-# Don't change this file!
-# Configure your app in config/environment.rb and config/environments/*.rb
-
 RAILS_ROOT = "#{File.dirname(__FILE__)}/.." unless defined?(RAILS_ROOT)
 
 module Rails
@@ -24,9 +21,8 @@ module Rails
       File.exist?("#{RAILS_ROOT}/vendor/rails")
     end
 
-    # FIXME : Ruby 1.9
     def preinitialize
-      load(preinitializer_path) if File.exists?(preinitializer_path)
+      load(preinitializer_path) if File.exist?(preinitializer_path)
     end
 
     def preinitializer_path
@@ -44,6 +40,8 @@ module Rails
   class VendorBoot < Boot
     def load_initializer
       require "#{RAILS_ROOT}/vendor/rails/railties/lib/initializer"
+      Rails::Initializer.run(:install_gem_spec_stubs)
+      Rails::GemDependency.add_frozen_gem_path
     end
   end
 
@@ -51,7 +49,6 @@ module Rails
     def load_initializer
       self.class.load_rubygems
       load_rails_gem
-      require 'initializer'
     end
 
     def load_rails_gem
@@ -60,14 +57,19 @@ module Rails
       else
         gem 'rails'
       end
-    rescue Gem::LoadError => load_error
-      $stderr.puts %(Missing the Rails #{version} gem. Please `gem install -v=#{version} rails`, update your RAILS_GEM_VERSION setting in config/environment.rb for the Rails version you do have installed, or comment out RAILS_GEM_VERSION to use the latest version installed.)
-      exit 1
+      require 'initializer'
     end
 
     class << self
-      def rubygems_version
-        Gem::RubyGemsVersion if defined? Gem::RubyGemsVersion
+      def load_rubygems
+        rubygems_version = Gem::VERSION
+        unless Gem::Version.new(rubygems_version) >= Gem::Version.new('0.9.4')
+          $stderr.puts %(Rails requires RubyGems >= 0.9.4. Please install RubyGems and try again: http://rubygems.rubyforge.org)
+          exit 1
+        end
+      rescue LoadError
+        $stderr.puts %(Rails requires RubyGems >= 0.9.4. Please install RubyGems and try again: http://rubygems.rubyforge.org)
+        exit 1
       end
 
       def gem_version
@@ -80,27 +82,13 @@ module Rails
         end
       end
 
-      def load_rubygems
-        require 'rubygems'
-
-        unless rubygems_version >= '0.9.4'
-          $stderr.puts %(Rails requires RubyGems >= 0.9.4 (you have #{rubygems_version}). Please `gem update --system` and try again.)
-          exit 1
-        end
-
-      rescue LoadError
-        $stderr.puts %(Rails requires RubyGems >= 0.9.4. Please install RubyGems and try again: http://rubygems.rubyforge.org)
-        exit 1
+      def read_environment_rb
+        File.read("#{RAILS_ROOT}/config/environment.rb")
       end
 
       def parse_gem_version(text)
         $1 if text =~ /^[^#]*RAILS_GEM_VERSION\s*=\s*["']([!~<>=]*\s*[\d.]+)["']/
       end
-
-      private
-        def read_environment_rb
-          File.read("#{RAILS_ROOT}/config/environment.rb")
-        end
     end
   end
 end
