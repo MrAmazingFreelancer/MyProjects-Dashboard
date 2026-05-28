@@ -1,272 +1,213 @@
 <?php
-$checks = [
-    'mysqli' => extension_loaded('mysqli'),
-    'curl' => extension_loaded('curl'),
-    'openssl' => extension_loaded('openssl'),
-    'mbstring' => extension_loaded('mbstring'),
-];
-
-$xamppRoot = realpath(__DIR__ . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . '..');
-$paths = [
-    'htdocs' => $xamppRoot . DIRECTORY_SEPARATOR . 'htdocs',
-    'tmp' => $xamppRoot . DIRECTORY_SEPARATOR . 'tmp',
-    'apache logs' => $xamppRoot . DIRECTORY_SEPARATOR . 'apache' . DIRECTORY_SEPARATOR . 'logs',
-];
-
-$pathChecks = [];
-foreach ($paths as $label => $path) {
-    $exists = is_dir($path);
-    $writable = $exists ? is_writable($path) : false;
-    $pathChecks[$label] = [
-        'path' => $path,
-        'exists' => $exists,
-        'writable' => $writable,
-    ];
-}
-
-$timezone = date_default_timezone_get();
-$now = date('Y-m-d H:i:s');
-
-$projectsRoot = realpath(__DIR__ . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . 'projects');
+$entries = scandir(__DIR__);
 $projects = [];
-if ($projectsRoot !== false && is_dir($projectsRoot)) {
-    $items = scandir($projectsRoot);
-    if ($items !== false) {
-        foreach ($items as $item) {
-            if ($item === '.' || $item === '..') {
-                continue;
-            }
 
-            $itemPath = $projectsRoot . DIRECTORY_SEPARATOR . $item;
-            if (is_dir($itemPath)) {
-                $projects[] = $item;
-            }
-        }
-    }
+if ($entries !== false) {
+	foreach ($entries as $entry) {
+		if ($entry === '.' || $entry === '..' || $entry === 'index.php') {
+			continue;
+		}
+		$path = __DIR__ . DIRECTORY_SEPARATOR . $entry;
+		if (is_dir($path)) {
+			$projects[] = [
+				'name'     => $entry,
+				'modified' => date('Y-m-d H:i:s', (int) filemtime($path)),
+			];
+		}
+	}
 }
-sort($projects, SORT_NATURAL | SORT_FLAG_CASE);
+
+usort($projects, static function (array $a, array $b): int {
+	return strnatcasecmp($a['name'], $b['name']);
+});
 ?>
 <!doctype html>
 <html lang="en">
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>XAMPP Workspace Health</title>
-    <link rel="stylesheet" href="/assets/theme.css">
-    <style>
-        :root {
-            --bg: #f4f7fb;
-            --panel: #ffffff;
-            --ink: #1f2937;
-            --muted: #6b7280;
-            --ok: #0f766e;
-            --bad: #b91c1c;
-            --line: #d1d5db;
-            --accent: #1d4ed8;
-        }
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Shared Projects</title>
+	<style>
+		:root {
+			--bg: #f6faf8;
+			--panel: #ffffff;
+			--ink: #0f172a;
+			--muted: #475569;
+			--line: #d1d5db;
+			--accent: #0369a1;
+		}
 
-        * { box-sizing: border-box; }
+		* { box-sizing: border-box; }
 
-        body {
-            margin: 0;
-            font-family: "Segoe UI", Tahoma, sans-serif;
-            background: linear-gradient(145deg, #eaf2ff 0%, #f7fbff 55%, #eef9f2 100%);
-            color: var(--ink);
-            min-height: 100vh;
-            display: grid;
-            place-items: center;
-            padding: 24px;
-        }
+		body {
+			margin: 0;
+			min-height: 100vh;
+			color: var(--ink);
+			font-family: "Segoe UI", Tahoma, sans-serif;
+			background:
+				radial-gradient(circle at 8% 12%, #d9f99d 0, transparent 30%),
+				radial-gradient(circle at 92% 8%, #bfdbfe 0, transparent 24%),
+				linear-gradient(180deg, #f8fffa 0%, #eff6ff 100%);
+			padding: 24px;
+		}
 
-        .card {
-            width: min(920px, 100%);
-            background: var(--panel);
-            border: 1px solid #e5e7eb;
-            border-radius: 16px;
-            box-shadow: 0 18px 44px rgba(17, 24, 39, 0.12);
-            overflow: hidden;
-        }
+		.wrap {
+			width: min(1080px, 100%);
+			margin: 0 auto;
+			background: var(--panel);
+			border: 1px solid #e5e7eb;
+			border-radius: 16px;
+			box-shadow: 0 18px 42px rgba(15, 23, 42, 0.12);
+			overflow: hidden;
+		}
 
-        .header {
-            padding: 22px 24px;
-            border-bottom: 1px solid var(--line);
-            background: linear-gradient(120deg, #eff6ff 0%, #f0fdf4 100%);
-        }
+		.head {
+			padding: 22px 24px;
+			border-bottom: 1px solid var(--line);
+			background: linear-gradient(120deg, #ecfeff, #f0fdf4);
+		}
 
-        .header h1 {
-            margin: 0;
-            font-size: clamp(1.3rem, 2.7vw, 1.85rem);
-            letter-spacing: 0.01em;
-        }
+		h1 {
+			margin: 0;
+			font-size: clamp(1.3rem, 2.7vw, 1.9rem);
+		}
 
-        .header p {
-            margin: 8px 0 0;
-            color: var(--muted);
-        }
+		.sub {
+			margin: 8px 0 0;
+			color: var(--muted);
+		}
 
-        .grid {
-            display: grid;
-            gap: 16px;
-            padding: 20px 24px 26px;
-        }
+		.quick {
+			display: flex;
+			gap: 10px;
+			flex-wrap: wrap;
+			margin-top: 12px;
+		}
 
-        @media (min-width: 780px) {
-            .grid { grid-template-columns: 1fr 1fr; }
-        }
+		.pill {
+			text-decoration: none;
+			color: #0f172a;
+			background: #dbeafe;
+			border: 1px solid #bfdbfe;
+			border-radius: 999px;
+			padding: 7px 12px;
+			font-weight: 700;
+			font-size: 0.9rem;
+		}
 
-        section {
-            border: 1px solid var(--line);
-            border-radius: 12px;
-            padding: 14px 14px 8px;
-        }
+		.content {
+			padding: 20px 24px 24px;
+		}
 
-        h2 {
-            margin-top: 0;
-            font-size: 1rem;
-            color: var(--accent);
-        }
+		.search-wrap {
+			margin-bottom: 16px;
+		}
 
-        ul {
-            list-style: none;
-            margin: 0;
-            padding: 0;
-        }
+		.search {
+			width: 100%;
+			padding: 10px 12px;
+			border: 1px solid #bfdbfe;
+			border-radius: 10px;
+			font-size: 0.95rem;
+		}
 
-        li {
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-start;
-            gap: 10px;
-            border-top: 1px dashed #e5e7eb;
-            padding: 10px 0;
-        }
+		section {
+			border: 1px solid var(--line);
+			border-radius: 12px;
+			padding: 14px;
+		}
 
-        li:first-child {
-            border-top: 0;
-            padding-top: 2px;
-        }
+		h2 {
+			margin-top: 0;
+			margin-bottom: 10px;
+			font-size: 1rem;
+			color: var(--accent);
+		}
 
-        .label {
-            font-weight: 600;
-        }
+		.list {
+			display: grid;
+			gap: 8px;
+		}
 
-        .value {
-            text-align: right;
-            color: var(--muted);
-            font-family: Consolas, monospace;
-            max-width: 56%;
-            word-break: break-word;
-        }
+		.item {
+			display: block;
+			text-decoration: none;
+			border: 1px solid #e2e8f0;
+			border-radius: 10px;
+			padding: 9px 11px;
+			color: #1e293b;
+			background: #f8fafc;
+			font-weight: 600;
+			word-break: break-word;
+		}
 
-        .status-ok { color: var(--ok); font-weight: 700; }
-        .status-bad { color: var(--bad); font-weight: 700; }
+		.item:hover {
+			background: #eff6ff;
+			border-color: #bfdbfe;
+		}
 
-        .projects {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
-            gap: 10px;
-        }
+		.empty {
+			margin: 0;
+			color: var(--muted);
+			font-size: 0.92rem;
+		}
 
-        .project-link {
-            display: block;
-            border: 1px solid #bfdbfe;
-            border-radius: 10px;
-            text-decoration: none;
-            background: #eff6ff;
-            color: #1e3a8a;
-            font-weight: 600;
-            padding: 10px 12px;
-            text-align: center;
-        }
-
-        .project-empty {
-            color: var(--muted);
-            margin: 0;
-            font-size: 0.92rem;
-        }
-
-        .quick-link {
-            display: inline-block;
-            margin-top: 10px;
-            padding: 8px 12px;
-            border-radius: 10px;
-            text-decoration: none;
-            font-weight: 700;
-            color: #0f172a;
-            background: #dbeafe;
-            border: 1px solid #bfdbfe;
-        }
-    </style>
+		.meta {
+			display: block;
+			margin-top: 5px;
+			font-weight: 500;
+			color: #64748b;
+			font-size: 0.84rem;
+		}
+	</style>
+	<link rel="stylesheet" href="/assets/theme.css">
 </head>
-<body data-page="dashboard">
-    <main class="card">
-        <header class="header">
-            <h1>XAMPP Workspace Health</h1>
-            <p>Generated by Copilot Chat coding task sample</p>
-            <a class="quick-link" href="db-check.php">Open MySQL Connection Check</a>
-            <a class="quick-link" href="../index.php" style="background:#e0f2fe;border-color:#bae6fd;">Back to Project Hub</a>
-        </header>
+<body data-page="projects">
+	<main class="wrap">
+		<header class="head">
+			<h1>Shared Projects</h1>
+			<p class="sub">All projects in D:\Projects — accessible at http://localhost/projects/</p>
+			<div class="quick">
+				<a class="pill" href="/">&#8592; Back to Hub</a>
+				<a class="pill" href="/dashboard/">Open Dashboard</a>
+			</div>
+		</header>
 
-        <div class="grid">
-            <section>
-                <h2>Runtime</h2>
-                <ul>
-                    <li><span class="label">PHP Version</span><span class="value"><?= htmlspecialchars(PHP_VERSION, ENT_QUOTES, 'UTF-8') ?></span></li>
-                    <li><span class="label">Server Time</span><span class="value"><?= htmlspecialchars($now, ENT_QUOTES, 'UTF-8') ?></span></li>
-                    <li><span class="label">Timezone</span><span class="value"><?= htmlspecialchars($timezone, ENT_QUOTES, 'UTF-8') ?></span></li>
-                    <li><span class="label">Project Path</span><span class="value"><?= htmlspecialchars(__DIR__, ENT_QUOTES, 'UTF-8') ?></span></li>
-                </ul>
-            </section>
+		<div class="content">
+			<div class="search-wrap">
+				<input id="proj-search" class="search" type="search" placeholder="Search projects...">
+			</div>
 
-            <section>
-                <h2>PHP Extensions</h2>
-                <ul>
-                    <?php foreach ($checks as $name => $ok): ?>
-                    <li>
-                        <span class="label"><?= htmlspecialchars($name, ENT_QUOTES, 'UTF-8') ?></span>
-                        <span class="value <?= $ok ? 'status-ok' : 'status-bad' ?>"><?= $ok ? 'Loaded' : 'Missing' ?></span>
-                    </li>
-                    <?php endforeach; ?>
-                </ul>
-            </section>
-
-            <section style="grid-column: 1 / -1;">
-                <h2>Directory Access</h2>
-                <ul>
-                    <?php foreach ($pathChecks as $name => $state): ?>
-                    <li>
-                        <span class="label"><?= htmlspecialchars($name, ENT_QUOTES, 'UTF-8') ?></span>
-                        <span class="value">
-                            <?= htmlspecialchars($state['path'], ENT_QUOTES, 'UTF-8') ?><br>
-                            <span class="<?= $state['exists'] ? 'status-ok' : 'status-bad' ?>">
-                                <?= $state['exists'] ? 'Exists' : 'Missing' ?>
-                            </span>
-                            |
-                            <span class="<?= $state['writable'] ? 'status-ok' : 'status-bad' ?>">
-                                <?= $state['writable'] ? 'Writable' : 'Not writable' ?>
-                            </span>
-                        </span>
-                    </li>
-                    <?php endforeach; ?>
-                </ul>
-            </section>
-
-            <section style="grid-column: 1 / -1;">
-                <h2>Projects Directory</h2>
-                <?php if (count($projects) > 0): ?>
-                <div class="projects">
-                    <?php foreach ($projects as $project): ?>
-                    <a class="project-link" href="../projects/<?= rawurlencode($project) ?>/">
-                        <?= htmlspecialchars($project, ENT_QUOTES, 'UTF-8') ?>
-                    </a>
-                    <?php endforeach; ?>
-                </div>
-                <?php else: ?>
-                <p class="project-empty">No projects found in htdocs/projects yet.</p>
-                <?php endif; ?>
-            </section>
-        </div>
-    </main>
-    <script src="/assets/theme.js"></script>
+			<section>
+				<h2>Projects (<?= count($projects) ?>)</h2>
+				<?php if (count($projects) > 0): ?>
+				<div class="list">
+					<?php foreach ($projects as $project): ?>
+					<a class="item" data-name="<?= htmlspecialchars(strtolower($project['name']), ENT_QUOTES, 'UTF-8') ?>" href="/projects/<?= rawurlencode($project['name']) ?>/">
+						<?= htmlspecialchars($project['name'], ENT_QUOTES, 'UTF-8') ?>/
+						<span class="meta">Modified: <?= htmlspecialchars($project['modified'], ENT_QUOTES, 'UTF-8') ?></span>
+					</a>
+					<?php endforeach; ?>
+				</div>
+				<?php else: ?>
+				<p class="empty">No projects found. Run <code>.\scripts\new-project.ps1 -Name my-project</code> from D:\xampp\htdocs to create one.</p>
+				<?php endif; ?>
+			</section>
+		</div>
+	</main>
+	<script src="/assets/theme.js"></script>
+	<script>
+		(function () {
+			const input = document.getElementById('proj-search');
+			if (!input) return;
+			const items = Array.from(document.querySelectorAll('.item[data-name]'));
+			input.addEventListener('input', function () {
+				const q = input.value.trim().toLowerCase();
+				for (const item of items) {
+					item.style.display = (item.getAttribute('data-name') || '').includes(q) ? '' : 'none';
+				}
+			});
+		})();
+	</script>
 </body>
 </html>

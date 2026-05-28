@@ -169,7 +169,7 @@ usort($projects, static function (array $a, array $b): int {
 			<p class="sub">All projects in D:\Projects — accessible at http://localhost/projects/</p>
 			<div class="quick">
 				<a class="pill" href="/">&#8592; Back to Hub</a>
-				<a class="pill" href="/_dashboard/">Open Dashboard</a>
+				<a class="pill" href="/dashboard/">Open Dashboard</a>
 			</div>
 		</header>
 

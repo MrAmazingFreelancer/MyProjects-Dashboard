@@ -2,5 +2,6 @@
     "github.copilot.chat.agent.autoFix": true,
     "github.copilot.chat.rateLimitAutoSwitchToAuto": true,
     "github.copilot.chat.scopeSelection": true,
-    "github.copilot.chat.codesearch.enabled": true
+    "github.copilot.chat.codesearch.enabled": true,
+    "cSpell.import": []
 }
