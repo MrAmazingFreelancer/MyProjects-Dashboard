@@ -3,5 +3,11 @@
     "github.copilot.chat.rateLimitAutoSwitchToAuto": true,
     "github.copilot.chat.scopeSelection": true,
     "github.copilot.chat.codesearch.enabled": true,
-    "cSpell.import": []
+    "cSpell.import": [],
+    "chat.mcp.discovery.enabled": {
+        "claude-desktop": true,
+        "windsurf": true,
+        "cursor-global": true,
+        "cursor-workspace": true
+    }
 }
