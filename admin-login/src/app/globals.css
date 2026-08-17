@@ -1,0 +1,42 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Mono:wght@300;400;500&family=Syne:wght@700;800&display=swap');
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+input:-webkit-autofill {
+  -webkit-box-shadow: 0 0 0 30px #111 inset !important;
+  -webkit-text-fill-color: #e0e0e0 !important;
+}
+
+.login-input:focus {
+  outline: none;
+  border-color: #c8ff00 !important;
+  box-shadow: 0 0 0 2px rgba(200, 255, 0, 0.15);
+}
+
+.login-btn:hover {
+  background: #d4ff1a !important;
+  transform: translateY(-1px);
+}
+
+.login-btn:active {
+  transform: translateY(0);
+}
+
+.login-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.project-card:hover {
+  border-color: #c8ff00 !important;
+  transform: translateY(-2px);
+}
+
+.project-card {
+  transition: all 0.2s;
+}

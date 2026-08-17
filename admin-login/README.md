@@ -40,6 +40,10 @@ npm run dev
 ```
 Visit http://localhost:3000/login
 
+On Windows, you can double-click `start-admin.bat` instead. It opens a separate terminal window and keeps the local server running while you use the admin portal. Do not close that window while using `localhost:3000`.
+
+The local URL is only available while the Next.js server is running. For a URL that stays available without a local terminal, deploy the app to Vercel and use the deployed URL instead.
+
 ### 7. Deploy to Vercel
 ```bash
 # Push to GitHub first, then connect repo in Vercel

@@ -1,6 +1,7 @@
 // src/app/layout.tsx
 import type { Metadata } from "next";
 import SessionWrapper from "@/components/SessionWrapper";
+import "./globals.css";
 
 export const metadata: Metadata = {
   title: "7ink Admin",

@@ -1,7 +1,5 @@
-// next.config.ts
-import type { NextConfig } from "next";
-
-const nextConfig: NextConfig = {
+/** @type {import('next').NextConfig} */
+const nextConfig = {
   // Allow embedding other projects in iframes within /admin
   async headers() {
     return [

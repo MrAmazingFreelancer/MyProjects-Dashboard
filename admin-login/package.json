@@ -11,20 +11,20 @@
     "db:studio": "prisma studio"
   },
   "dependencies": {
-    "next": "14.2.3",
-    "react": "^18",
-    "react-dom": "^18",
-    "next-auth": "^4.24.7",
-    "bcryptjs": "^2.4.3",
+    "@auth/prisma-adapter": "^1.6.0",
     "@prisma/client": "^5.13.0",
-    "@auth/prisma-adapter": "^1.6.0"
+    "bcryptjs": "^2.4.3",
+    "next": "^14.2.35",
+    "next-auth": "^4.24.7",
+    "react": "^18",
+    "react-dom": "^18"
   },
   "devDependencies": {
-    "typescript": "^5",
+    "@types/bcryptjs": "^2.4.6",
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",
-    "@types/bcryptjs": "^2.4.6",
-    "prisma": "^5.13.0"
+    "prisma": "^5.13.0",
+    "typescript": "^5"
   }
 }

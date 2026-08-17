@@ -1,9 +1,12 @@
-# Build outputs
-**/target/
-
-# Nested worktree folders
-webdav.worktrees/
-
-# Nested repositories managed separately
-7ink-website/
-Dashboard/_push_v10/
+CloneBot_V2/
+MrAmazingFreelancer/
+MrAmazingFreelancer.github.io/
+hls.js/
+hometube/
+http-streaming/
+open-in-vlc/
+v10/
+webdav/
+node_modules/
+.env
+.env.local
