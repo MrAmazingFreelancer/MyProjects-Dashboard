@@ -1,0 +1,9 @@
+{
+  "name": "7ink-website",
+  "compatibility_date": "2026-06-04",
+  "workers_dev": true,
+  "preview_urls": false,
+  "assets": {
+    "directory": "./.cf-assets"
+  }
+}

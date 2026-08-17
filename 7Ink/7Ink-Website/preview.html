@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Directory — Your Brand</title>
+<meta name="description" content="Browse member businesses in our directory.">
+<style>
+/* =========================================================
+   DESIGN TOKENS
+   Change these to re-theme the whole page. Nothing below
+   this block should need editing for a basic re-skin.
+   ========================================================= */
+:root {
+  /* Color */
+  --color-bg: #f7f7f5;
+  --color-surface: #ffffff;
+  --color-border: #e4e4e0;
+  --color-text: #1c1c1a;
+  --color-text-muted: #6b6b66;
+  --color-accent: #2b6cb0;
+  --color-accent-contrast: #ffffff;
+
+  /* Type */
+  --font-display: "Georgia", "Iowan Old Style", serif;
+  --font-body: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --font-mono: "SFMono-Regular", Consolas, monospace;
+
+  --fs-h1: clamp(2rem, 4vw, 3rem);
+  --fs-h2: 1.25rem;
+  --fs-body: 1rem;
+  --fs-small: 0.85rem;
+
+  /* Layout */
+  --radius: 10px;
+  --radius-sm: 6px;
+  --gap: 1.5rem;
+  --container-max: 1180px;
+  --shadow-card: 0 1px 2px rgba(0, 0, 0, 0.04), 0 1px 8px rgba(0, 0, 0, 0.03);
+  --shadow-card-hover: 0 4px 16px rgba(0, 0, 0, 0.08);
+  --transition: 160ms ease;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+
+body {
+  margin: 0;
+  background: var(--color-bg);
+  color: var(--color-text);
+  font-family: var(--font-body);
+  font-size: var(--fs-body);
+  line-height: 1.5;
+}
+
+img { max-width: 100%; display: block; }
+a { color: inherit; text-decoration: none; }
+:focus-visible { outline: 2px solid var(--color-accent); outline-offset: 2px; }
+
+.container {
+  max-width: var(--container-max);
+  margin-inline: auto;
+  padding-inline: 1.25rem;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * { animation: none !important; transition: none !important; }
+  html { scroll-behavior: auto; }
+}
+
+/* HEADER */
+.site-header {
+  background: var(--color-surface);
+  border-bottom: 1px solid var(--color-border);
+  position: sticky;
+  top: 0;
+  z-index: 20;
+}
+.site-header__inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding-block: 0.9rem;
+}
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-family: var(--font-display);
+  font-size: 1.3rem;
+  font-weight: 700;
+  letter-spacing: 0.01em;
+}
+.brand__mark {
+  width: 32px;
+  height: 32px;
+  border-radius: var(--radius-sm);
+  background: var(--color-accent);
+  color: var(--color-accent-contrast);
+  display: grid;
+  place-items: center;
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  font-weight: 700;
+}
+.site-nav { display: flex; gap: 1.5rem; font-size: var(--fs-small); font-weight: 600; }
+.site-nav a { color: var(--color-text-muted); transition: color var(--transition); }
+.site-nav a:hover, .site-nav a[aria-current="page"] { color: var(--color-text); }
+.header-actions { display: flex; gap: 0.6rem; }
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+  padding: 0.55rem 1rem;
+  border-radius: var(--radius-sm);
+  font-size: var(--fs-small);
+  font-weight: 600;
+  border: 1px solid transparent;
+  cursor: pointer;
+  transition: transform var(--transition), box-shadow var(--transition), background var(--transition);
+  white-space: nowrap;
+}
+.btn:hover { transform: translateY(-1px); }
+.btn--primary { background: var(--color-accent); color: var(--color-accent-contrast); }
+.btn--primary:hover { box-shadow: var(--shadow-card-hover); }
+.btn--ghost { background: transparent; border-color: var(--color-border); color: var(--color-text); }
+
+@media (max-width: 720px) { .site-nav { display: none; } }
+
+/* PAGE HEADING */
+.page-intro { padding-block: 2.5rem 1.5rem; }
+.page-intro h1 { font-family: var(--font-display); font-size: var(--fs-h1); margin: 0 0 0.4rem; }
+.page-intro p { color: var(--color-text-muted); margin: 0; max-width: 60ch; }
+
+/* TOOLBAR */
+.toolbar { display: flex; flex-wrap: wrap; align-items: center; gap: 0.75rem; padding-bottom: 1.5rem; }
+.search-field { flex: 1 1 260px; position: relative; }
+.search-field input {
+  width: 100%;
+  padding: 0.65rem 1rem 0.65rem 2.3rem;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  background: var(--color-surface);
+  font-size: var(--fs-body);
+  color: var(--color-text);
+}
+.search-field svg {
+  position: absolute;
+  left: 0.75rem;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 16px;
+  height: 16px;
+  color: var(--color-text-muted);
+  pointer-events: none;
+}
+.filter-chips { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+.chip {
+  padding: 0.4rem 0.85rem;
+  border-radius: 999px;
+  border: 1px solid var(--color-border);
+  background: var(--color-surface);
+  font-size: var(--fs-small);
+  font-weight: 600;
+  color: var(--color-text-muted);
+  cursor: pointer;
+  transition: all var(--transition);
+}
+.chip:hover { border-color: var(--color-accent); }
+.chip[aria-pressed="true"] { background: var(--color-accent); border-color: var(--color-accent); color: var(--color-accent-contrast); }
+
+/* GRID */
+.listing-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: var(--gap);
+  padding-block: 0.5rem 3rem;
+}
+.listing-card {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  padding: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.75rem;
+  box-shadow: var(--shadow-card);
+  transition: box-shadow var(--transition), transform var(--transition);
+}
+.listing-card:hover { box-shadow: var(--shadow-card-hover); transform: translateY(-2px); }
+.listing-card__logo {
+  width: 100%;
+  height: 64px;
+  object-fit: contain;
+  object-position: left center;
+  border-radius: var(--radius-sm);
+  background: var(--color-bg);
+}
+.listing-card__name { font-size: var(--fs-h2); font-weight: 700; margin: 0; }
+.listing-card__category { font-size: var(--fs-small); color: var(--color-text-muted); text-transform: uppercase; letter-spacing: 0.04em; }
+.listing-card__link {
+  margin-top: auto;
+  font-size: var(--fs-small);
+  font-weight: 700;
+  color: var(--color-accent);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+}
+.listing-card__link::after { content: "→"; transition: transform var(--transition); }
+.listing-card:hover .listing-card__link::after { transform: translateX(3px); }
+.empty-state { grid-column: 1 / -1; text-align: center; padding: 3rem 1rem; color: var(--color-text-muted); }
+
+/* FEATURED STRIP */
+.featured-strip { border-top: 1px solid var(--color-border); padding-block: 2rem; }
+.featured-strip h2 { font-size: var(--fs-small); text-transform: uppercase; letter-spacing: 0.08em; color: var(--color-text-muted); margin: 0 0 1rem; }
+.featured-strip__row { display: flex; flex-wrap: wrap; gap: 1.5rem; align-items: center; }
+.featured-strip__row img { height: 36px; width: auto; object-fit: contain; opacity: 0.85; filter: grayscale(20%); }
+
+/* FOOTER */
+.site-footer { background: var(--color-surface); border-top: 1px solid var(--color-border); padding-block: 2.5rem; font-size: var(--fs-small); color: var(--color-text-muted); }
+.site-footer__grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 1.5rem; }
+.site-footer h3 { color: var(--color-text); font-size: var(--fs-small); text-transform: uppercase; letter-spacing: 0.06em; margin: 0 0 0.6rem; }
+.site-footer ul { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 0.4rem; }
+.site-footer a:hover { color: var(--color-text); }
+.site-footer__bottom { margin-top: 2rem; padding-top: 1.5rem; border-top: 1px solid var(--color-border); text-align: center; }
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="container site-header__inner">
+    <a href="/" class="brand">
+      <span class="brand__mark">7i</span>
+      Your Brand
+    </a>
+    <nav class="site-nav" aria-label="Primary">
+      <a href="#" aria-current="page">Directory</a>
+      <a href="#">About</a>
+      <a href="#">News</a>
+      <a href="#">Contact</a>
+    </nav>
+    <div class="header-actions">
+      <a href="#" class="btn btn--ghost">Member login</a>
+      <a href="#" class="btn btn--primary">Become a member</a>
+    </div>
+  </div>
+</header>
+
+<main>
+  <section class="container page-intro">
+    <h1>Directory</h1>
+    <p>Browse our member businesses. Use the search or filters below to find what you're looking for.</p>
+  </section>
+
+  <section class="container toolbar">
+    <div class="search-field">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <circle cx="11" cy="11" r="7"/>
+        <line x1="21" y1="21" x2="16.65" y2="16.65"/>
+      </svg>
+      <input type="search" id="search-input" placeholder="Search businesses..." aria-label="Search businesses">
+    </div>
+    <div class="filter-chips" id="filter-chips" role="group" aria-label="Filter by category"></div>
+  </section>
+
+  <section class="container">
+    <div class="listing-grid" id="listing-grid"></div>
+  </section>
+
+  <section class="container featured-strip">
+    <h2>Featured members</h2>
+    <div class="featured-strip__row" id="featured-row"></div>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="site-footer__grid">
+      <div>
+        <h3>Contact</h3>
+        <ul><li><a href="mailto:hello@yourbrand.com.au">hello@yourbrand.com.au</a></li></ul>
+      </div>
+      <div>
+        <h3>Links</h3>
+        <ul>
+          <li><a href="#">Become a member</a></li>
+          <li><a href="#">Member login</a></li>
+          <li><a href="#">Terms of use</a></li>
+        </ul>
+      </div>
+      <div>
+        <h3>Follow</h3>
+        <ul>
+          <li><a href="#">Facebook</a></li>
+          <li><a href="#">Instagram</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="site-footer__bottom">
+      &copy; <span id="year"></span> Your Brand. All rights reserved.
+    </div>
+  </div>
+</footer>
+
+<script>
+// Same listings data as listings.json — inlined here so this single file
+// can preview standalone. In the full template, script.js fetches
+// listings.json instead of using this constant.
+const listings = [
+  { name: "Acme Studio", logo: "https://placehold.co/160x80?text=Acme", url: "https://example.com", category: "Design", featured: true },
+  { name: "Bluepeak Consulting", logo: "https://placehold.co/160x80?text=Bluepeak", url: "https://example.com", category: "Consulting", featured: false },
+  { name: "Nova Print Co.", logo: "https://placehold.co/160x80?text=Nova+Print", url: "https://example.com", category: "Print", featured: false },
+  { name: "Redwire Electrical", logo: "https://placehold.co/160x80?text=Redwire", url: "https://example.com", category: "Trade", featured: true },
+  { name: "Solace Wellness", logo: "https://placehold.co/160x80?text=Solace", url: "https://example.com", category: "Wellness", featured: false },
+  { name: "Timber & Co.", logo: "https://placehold.co/160x80?text=Timber+%26+Co", url: "https://example.com", category: "Trade", featured: false }
+];
+
+const state = { activeCategory: "all", query: "" };
+
+const grid = document.getElementById("listing-grid");
+const chipsWrap = document.getElementById("filter-chips");
+const searchInput = document.getElementById("search-input");
+const featuredRow = document.getElementById("featured-row");
+
+document.getElementById("year").textContent = new Date().getFullYear();
+
+function renderChips() {
+  const categories = ["all", ...new Set(listings.map((l) => l.category))];
+  chipsWrap.innerHTML = "";
+  categories.forEach((cat) => {
+    const btn = document.createElement("button");
+    btn.className = "chip";
+    btn.type = "button";
+    btn.textContent = cat === "all" ? "All" : cat;
+    btn.setAttribute("aria-pressed", String(cat === state.activeCategory));
+    btn.addEventListener("click", () => {
+      state.activeCategory = cat;
+      renderChips();
+      render();
+    });
+    chipsWrap.appendChild(btn);
+  });
+}
+
+function renderFeatured() {
+  const featured = listings.filter((l) => l.featured);
+  featuredRow.innerHTML = "";
+  featured.forEach((l) => {
+    const img = document.createElement("img");
+    img.src = l.logo;
+    img.alt = l.name;
+    featuredRow.appendChild(img);
+  });
+}
+
+function render() {
+  const filtered = listings.filter((l) => {
+    const matchesCategory = state.activeCategory === "all" || l.category === state.activeCategory;
+    const matchesQuery = l.name.toLowerCase().includes(state.query.toLowerCase());
+    return matchesCategory && matchesQuery;
+  });
+
+  grid.innerHTML = "";
+
+  if (filtered.length === 0) {
+    grid.innerHTML = '<p class="empty-state">No businesses match your search.</p>';
+    return;
+  }
+
+  filtered.forEach((listing) => {
+    const card = document.createElement("article");
+    card.className = "listing-card";
+    card.innerHTML = `
+      <img class="listing-card__logo" src="${listing.logo}" alt="${listing.name} logo">
+      <p class="listing-card__name">${listing.name}</p>
+      <span class="listing-card__category">${listing.category}</span>
+      <a class="listing-card__link" href="${listing.url}" target="_blank" rel="noopener noreferrer">Visit website</a>
+    `;
+    grid.appendChild(card);
+  });
+}
+
+searchInput.addEventListener("input", (e) => {
+  state.query = e.target.value;
+  render();
+});
+
+renderChips();
+renderFeatured();
+render();
+</script>
+</body>
+</html>

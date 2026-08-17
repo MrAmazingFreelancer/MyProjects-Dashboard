@@ -1,0 +1,44 @@
+[
+  {
+    "name": "Acme Studio",
+    "logo": "https://placehold.co/160x80?text=Acme",
+    "url": "https://example.com",
+    "category": "Design",
+    "featured": true
+  },
+  {
+    "name": "Bluepeak Consulting",
+    "logo": "https://placehold.co/160x80?text=Bluepeak",
+    "url": "https://example.com",
+    "category": "Consulting",
+    "featured": false
+  },
+  {
+    "name": "Nova Print Co.",
+    "logo": "https://placehold.co/160x80?text=Nova+Print",
+    "url": "https://example.com",
+    "category": "Print",
+    "featured": false
+  },
+  {
+    "name": "Redwire Electrical",
+    "logo": "https://placehold.co/160x80?text=Redwire",
+    "url": "https://example.com",
+    "category": "Trade",
+    "featured": true
+  },
+  {
+    "name": "Solace Wellness",
+    "logo": "https://placehold.co/160x80?text=Solace",
+    "url": "https://example.com",
+    "category": "Wellness",
+    "featured": false
+  },
+  {
+    "name": "Timber & Co.",
+    "logo": "https://placehold.co/160x80?text=Timber+%26+Co",
+    "url": "https://example.com",
+    "category": "Trade",
+    "featured": false
+  }
+]
