@@ -9,7 +9,6 @@ const copyDirectories = [
   "admin",
   "api",
   "assets",
-  "cpanel",
   "forms",
   "javascripts",
   "stylesheets"
