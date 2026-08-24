@@ -10,3 +10,21 @@ webdav/
 node_modules/
 .env
 .env.local
+
+# Build output
+.next/
+build/
+dist/
+out/
+
+# Cache
+.turbo/
+.parcel-cache/
+.cache/
+coverage/
+.nyc_output/
+
+# Python
+__pycache__/
+*.pyc
+.pytest_cache/
