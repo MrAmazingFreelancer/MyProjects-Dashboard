@@ -166,10 +166,10 @@ usort($projects, static function (array $a, array $b): int {
 	<main class="wrap">
 		<header class="head">
 			<h1>Shared Projects</h1>
-			<p class="sub">All projects in D:\Projects — accessible at http://localhost/projects/</p>
+			<p class="sub">All projects in D:\Projects — accessible at http://localhost/MyProjects-Dashboard/projects/</p>
 			<div class="quick">
 				<a class="pill" href="/">&#8592; Back to Hub</a>
-				<a class="pill" href="/dashboard/">Open Dashboard</a>
+				<a class="pill" href="/MyProjects-Dashboard/dashboard/">Open Dashboard</a>
 			</div>
 		</header>
 
@@ -183,7 +183,7 @@ usort($projects, static function (array $a, array $b): int {
 				<?php if (count($projects) > 0): ?>
 				<div class="list">
 					<?php foreach ($projects as $project): ?>
-					<a class="item" data-name="<?= htmlspecialchars(strtolower($project['name']), ENT_QUOTES, 'UTF-8') ?>" href="/projects/<?= rawurlencode($project['name']) ?>/">
+					<a class="item" data-name="<?= htmlspecialchars(strtolower($project['name']), ENT_QUOTES, 'UTF-8') ?>" href="/MyProjects-Dashboard/projects/<?= rawurlencode($project['name']) ?>/">
 						<?= htmlspecialchars($project['name'], ENT_QUOTES, 'UTF-8') ?>/
 						<span class="meta">Modified: <?= htmlspecialchars($project['modified'], ENT_QUOTES, 'UTF-8') ?></span>
 					</a>

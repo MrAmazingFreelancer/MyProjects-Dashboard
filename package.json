@@ -1,0 +1,22 @@
+{
+  "name": "myprojects-dashboard",
+  "version": "1.0.0",
+  "description": "",
+  "main": "hls.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MrAmazingFreelancer/MyProjects-Dashboard.git"
+  },
+  "keywords": [],
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/MrAmazingFreelancer/MyProjects-Dashboard/issues"
+  },
+  "homepage": "https://github.com/MrAmazingFreelancer/MyProjects-Dashboard#readme",
+  "dependencies": {
+    "openai": "^7.5.0"
+  }
+}

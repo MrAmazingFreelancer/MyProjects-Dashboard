@@ -1,160 +1,39 @@
-<h1 align="center">Run JavaScript <a href="https://nodejs.org/en/download">Everywhere</a>.</h1><br>
+<p align="center"><img src="https://github.com/MrAmazingFreelancer/MrAmazingFreelancer/blob/main/profile.jpg" /></p>
+         
+<p align="center"><b><a href="https://git.io/typing-svg"><img src="https://readme-typing-svg.herokuapp.com?font=Fira+Code&weight=800&size=30&pause=1000&width=435&lines=Welcome+to+My+GitHub" alt="Typing SVG" /></a></b></p>
 
-<p align="center">
-  <a href="https://nodejs.org/">
-    <img src="https://avatars.githubusercontent.com/u/9950313?s=200&v=4" alt="Node.js logo" height="140">
-  </a>
-</p>
+<p align="center">-- *If you liked my profile, you can Star ⭐ the repo and if you want to use this template you can Fork it and can use.* -- </p>
 
-<p align="center">
-  Node.js® is a free, open-source, cross-platform JavaScript run-time environment—<br> that lets developers write command line tools and server-side scripts outside of a browser.
-</p>
+<br />
+<br />
+<a href="" target="_blank" rel="noreferrer"> <picture> <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/socials/instagram-dark.svg" /> <source media="(prefers-color-scheme: light)" srcset="https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/socials/instagram.svg" /> <img src="https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/socials/instagram.svg" width="32" height="32" /> </picture> </a> <a href="" target="_blank" rel="noreferrer"> <picture> <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/socials/linkedin-dark.svg" /> <source media="(prefers-color-scheme: light)" srcset="https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/socials/linkedin.svg" /> <img src="https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/socials/linkedin.svg" width="32" height="32" /> </picture> </a> <a href="" target="_blank" rel="noreferrer"> <picture> <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/socials/rss-dark.svg" /> <source media="(prefers-color-scheme: light)" srcset="https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/socials/rss.svg" /> <img src="https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/socials/rss.svg" width="32" height="32" /> </picture> </a> <a href="" target="_blank" rel="noreferrer"> <picture> <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/socials/twitter-dark.svg" /> <source media="(prefers-color-scheme: light)" srcset="https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/socials/twitter.svg" /> <img src="https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/socials/twitter.svg" width="32" height="32" /> </picture> </a> <a href="" target="_blank" rel="noreferrer"> <picture> <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/socials/youtube-dark.svg" /> <source media="(prefers-color-scheme: light)" srcset="https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/socials/youtube.svg" /> <img src="https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/socials/youtube.svg" width="32" height="32" /> </picture> </a> <a href="https://www.threads.net/@christitustech" target="_blank" rel="noreferrer"> <picture> <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/socials/threads-dark.svg" /> <source media="(prefers-color-scheme: light)" srcset="https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/socials/threads.svg" /> <img src="https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/socials/threads.svg" width="32" height="32" /> </picture> </a> <a href="" target="_blank" rel="noreferrer"> <picture> <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/socials/twitch-dark.svg" /> <source media="(prefers-color-scheme: light)" srcset="https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/socials/twitch.svg" /> <img src="https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/socials/twitch.svg" width="32" height="32" /> </picture> </a></p>
 
-<p align="center">
-  <a href="https://nodejs.org/en/download">Get Node.js® ✨</a>
-  ·
-  <a href="https://github.com/nodejs/node/issues/new/choose">Report a bug on Node.js 🐞</a>
-  ·
-  <a href="https://nodejs.org/en/get-involved">Contribute to Node.js 🫶</a>
-  ·
-  <a href="https://openjsf.org/certification/">Get Certified 🎓</a>
-</p>
 
-----
 
-#### 👋 Contributing to Node.js.
 
-<sub>Node.js is an open-source project, and it's always looking for new contributions. From documentation, translation, contributing to our infrastructure or reporting a bug; any contribution is valued and welcome. Are you interested in contributing to Node.js? Give a read to our [Governance Model](https://github.com/nodejs/node/blob/main/GOVERNANCE.md) and the numerous ways you can [Get Involved](https://nodejs.org/en/get-involved) with Node.js!</sub>
+### 🔨 My recent Pull Requests
 
-#### 🦺 Help us making this Community safe.
 
-<sub>The Node.js GitHub org(anization) follows the [OpenJS Foundation](https://github.com/openjs-foundation/cross-project-council/blob/main/CODE_OF_CONDUCT.md) and [Node.js's Code of Conduct](https://github.com/nodejs/admin/blob/HEAD/CODE_OF_CONDUCT.md). Please abide by these Codes of Conduct when interacting with all repositories under the Node.js umbrella and when interacting with people.</sub>
+- []() on [MrAmazingFreelancer()
+- []() on [MrAmazingFreelancer()
+- []() on [MrAmazingFreelancer()
+- []() on [MrAmazingFreelancer()
+- []() on [MrAmazingFreelancer()
 
-#### 👾 Reporting Security Incidents.
 
-<sub>Please be mindful that security-related issues should be reported through our [Security Policy](https://github.com/nodejs/node/security/policy) as security-related issues and vulnerabilities can be exploited and we request confidentiality whenever possible.</sub>
-# .github
-General GitHub information to appear on all repositories.
+### ⭐ Recent Stars
 
-**The following warnings and notes only apply to the repository owner [@MrAmazingFreelancer](https://github.com/MrAmazingFreelancer/) anybody else is obviously free to do whatever they want with this project, as long as they abide by the GPL3 license.**
+- []() -
+- []() -
+- []() - 
+- []() -
+  
 
-# WARNING
+### 📫 How to reach me:
 
-Anything added to this repository may apply to all repositories. Please do not add the following files to this project:
-
-`CONTRIBUTING`
-
-`.gitattributes`
-
-`.gitignore`
-
-`.editorconfig`
-
-Social preview image
-
-Discussions
-
-Issue templates
-
-Security information
-
-Anything else you don't want added to all projects that may not fit.
-
-# Note
-
-Do not fork this project yet before all relevant info is added. It will be needed in various organizations.
-
-***
-
-## File info
-
-<details><summary><p>Click/tap here to expand/collapse this section</p></summary>
-
-**File type:** `Markdown document (*.md *.mkd *.mdown *.markdown)`
-
-**File version:** `3 (2021, Monday, November 8th at 8:42 pm)`
-
-**Line count (including blank lines and compiler line):** `135`
-
-**All times are UTC-7 (PDT/Pacific Time)**
-
-**You may need special rendering support for the `<dropdown>` HTML tag being used in this document**
-
-**Encoding:** `UTF-8` **(with no non-US-ASCII characters)**
-
-</details>
-
-***
-
-## File history
-
-
-<details><summary><p>Click/tap here to expand/collapse this section</p></summary>
-
-**Version 1 (2021, Sunday, November 7th at 5:31 pm)**
-
-> Changes:
-
-> * Started the file (automatically generated by GitHub)
-
-> * Added the title section
-
-> * No other changes in version 1
-
-**Version 2 (2021, Sunday, November 7th at 5:57 pm)**
-
-> Changes:
-
-> * Added the warning section
-
-> * No other changes in version 2
-
-**Version 3 (2021, Monday, November 8th at 8:42 pm)**
-
-> Changes:
-
-> * Added a public disclaimer
-
-> * Added a personal fork warning
-
-> * Added the file info section
-
-> * Added the file history section
-
-> * Added the footer
-
-> * No other changes in version 3
-
-**Version 4 (Coming soon)**
-
-> Changes:
-
-> * Coming soon
-
-> * No other changes in version 4
-
-**Version 5 (Coming soon)**
-
-> Changes:
-
-> * Coming soon
-
-> * No other changes in version 5
-
-**Version 6 (Coming soon)**
-
-> Changes:
-
-> * Coming soon
-
-> * No other changes in version 6
-
-</details>
-
-***
-
-## Footer
-
-You have reached the end of this page.
-
-( [Back to top](#Top) | [Exit to GitHub](https://github.com/)
+  - Youtube   : <https://youtube.com/>
+  - Twitch    : <https://twitch.tv/>
+  - Twitter   : <https://twitter.com/>
+  - Website   : <https:/>
+  - Web Store : <https:/>
+  
