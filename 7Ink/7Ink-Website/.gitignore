@@ -5,7 +5,6 @@ npm-debug.log*
 .env
 .env.local
 .vercel
-.wrangler/
 
 public/
 .next/
